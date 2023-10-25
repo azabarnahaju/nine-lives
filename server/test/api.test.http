@@ -1,0 +1,40 @@
+# GET http://localhost:4000/api/v1/cats
+# GET http://localhost:4000/api/v1/users
+
+# POST http://localhost:4000/api/v1/cats
+# Content-Type: application/json
+
+# {
+#   "vote": 1
+# }
+
+# POST http://localhost:4000/api/v1/users
+# Content-Type: application/json
+
+# {
+#    "username": "daniel",
+#     "email": "dan@yes.com",
+#     "password": "no"
+# }
+
+
+# PATCH http://localhost:4000/api/v1/users/6538f3d7dd05bda400700a2f
+# Content-Type: application/json
+
+# {
+#    "username": "daniel",
+#     "password": "no"
+# }
+
+# GET http://localhost:4000/api/v1/cats/1
+# GET http://localhost:4000/api/v1/users/6538ed96d5072803721ed6c4
+
+
+# DELETE http://localhost:4000/api/v1/cats/1
+# DELETE http://localhost:4000/api/v1/users/6538ed96d5072803721ed6c4
+
+
+
+# GET http://localhost:4000/api/v1/diseases/
+
+# GET http://localhost:4000/api/v1/diseases/PKD1
