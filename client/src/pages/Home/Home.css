@@ -1,0 +1,50 @@
+.user-icon {
+    position: absolute;
+    top: 1.5rem;
+    right: 2rem;
+}
+
+body {
+    background-color: #E3D8D2;
+}
+
+.home-container {
+    margin-top: 12rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-left: 9rem;
+    margin-right: 9rem;
+}
+
+.home-text-container {
+    text-align: center;
+}
+
+.home-img {
+    margin: 0;
+    height: 25rem;
+    border-radius: 10rem;
+}
+
+.home-title {
+    font-size: 5rem;
+    margin-bottom: 0;
+}
+
+.home-motto {
+    font-size: 2rem;
+    font-style: italic;
+    margin-top: 1rem;
+}
+
+.home-logo {
+    position: absolute;
+    height: 6rem;
+    top: 18.2rem;
+    left: 28.5rem;
+    opacity: 50%;
+}
+
+
+

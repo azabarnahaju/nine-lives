@@ -1,0 +1,7 @@
+#icon-container{
+    display: grid;
+    grid-template-columns: repeat(3,15vw);
+    grid-template-rows: repeat(2,10vh); 
+    gap: 20vh 10vw; 
+    position: relative;
+}
