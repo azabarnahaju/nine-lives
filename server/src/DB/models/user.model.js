@@ -10,7 +10,11 @@ const UserSchema = mongoose.Schema({
         type: String,
         required: true,
     },
-})
+    cats: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref:'Cat'
+    }],
+});
 
 const UserModel = mongoose.model('User', UserSchema)
 
