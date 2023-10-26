@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useUserContext } from '../../contexts/userContext';
-import { bubble as Menu } from 'react-burger-menu';
 import './MyCats.css';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Link } from 'react-router-dom';
+import Navbar from '../../components/Navbar/Navbar';
 
 export default function MyCats() {
     // eslint-disable-next-line no-unused-vars
@@ -51,19 +51,7 @@ export default function MyCats() {
                 <h6 className='home-title'>nine lives</h6>
                 <h2 className='home-motto'>My cats</h2>
             </div>
-            <div id='menu-wrapper'>
-                <Menu>
-                    <Link to={`/profile/${currUser._id}`} className='menu-item'>
-                        Profile
-                    </Link>
-                    <Link to={`/mycats`} className='menu-item'>
-                        MY cats
-                    </Link>
-                    <Link to={`/breeds`} className='menu-item'>
-                        Browse breeds
-                    </Link>
-                </Menu>
-            </div>
+            <Navbar />
             {userCats ? (
                 <div className='cats-container'>
                     {userCats.map((cat) => (
