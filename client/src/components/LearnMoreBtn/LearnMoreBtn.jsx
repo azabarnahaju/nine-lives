@@ -4,7 +4,7 @@ import "./LearnMoreBtn.css";
 export default function LearnMoreBtn() {
     return (
       <Link to="/about">
-        <button className="learn-more-btn" Link>
+        <button className="learn-more-btn">
           Learn More
         </button>
       </Link>

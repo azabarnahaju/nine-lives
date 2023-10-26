@@ -1,5 +1,32 @@
 .icon-bg {
     background-color: #BA9E87;
-    border-radius: 50%;
+    border-radius: 2rem;
     text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1.5rem;
+    transition: ease-in-out 1s;
+    margin: 2.5rem;
 }
+
+.icon-bg:hover {
+    transform:scale(1.2);
+    transition: ease-in-out 1s;
+}
+
+.icon-container p {
+    text-align: center;
+    font-size: 2rem;
+}
+
+.icon-container {
+    padding: 2rem;
+}
+
+.icons-container {
+    columns: 3;
+    margin-left: 6rem;
+    margin-right: 6rem;
+}
+

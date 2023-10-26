@@ -14,7 +14,7 @@ export default function Login() {
         refContainer.current.focus();
     }, []);
     useEffect(() => {
-        const postTodo = async () => {
+        const postUser = async () => {
             try {
                 await fetch('http://localhost:4000/api/v1/users', {
                     method: 'POST',
@@ -34,7 +34,7 @@ export default function Login() {
                 });
             }
         };
-        if (formDatas.username) postTodo();
+        if (formDatas.username) postUser();
     }, [formDatas]);
     const handleSubmit = (e) => {
         e.preventDefault();
