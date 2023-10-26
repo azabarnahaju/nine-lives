@@ -6,6 +6,7 @@ import About from './pages/About/About';
 import Signup from './pages/Signup/Signup';
 import MyCats from './pages/MyCats/MyCats';
 import AppContext from './contexts/userContext';
+import HealthRecord from './pages/HealthRecord/HealthRecord';
 
 function App() {
     return (
@@ -17,6 +18,7 @@ function App() {
                     <Route path='/about' element={<About />}></Route>
                     <Route path='/signup' element={<Signup />}></Route>
                     <Route path='/mycats' element={<MyCats />}></Route>
+                    <Route path='/newhealthrecord' element={<HealthRecord />}></Route>
                 </Routes>
             </AppContext>
         </BrowserRouter>
