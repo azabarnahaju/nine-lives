@@ -6,20 +6,22 @@ import About from './pages/About/About';
 import Signup from './pages/Signup/Signup';
 import MyCats from './pages/MyCats/MyCats';
 import AppContext from './contexts/userContext';
+import CatProfile from './pages/CatProfile/CatProfile';
 
 function App() {
     return (
-        <BrowserRouter>
-            <AppContext>
-                <Routes>
-                    <Route path='/home' element={<Home />}></Route>
-                    <Route path='/login' element={<Login />}></Route>
-                    <Route path='/about' element={<About />}></Route>
-                    <Route path='/signup' element={<Signup />}></Route>
-                    <Route path='/mycats' element={<MyCats />}></Route>
-                </Routes>
-            </AppContext>
-        </BrowserRouter>
+      <BrowserRouter>
+        <AppContext>
+          <Routes>
+            <Route path="/home" element={<Home />}></Route>
+            <Route path="/login" element={<Login />}></Route>
+            <Route path="/about" element={<About />}></Route>
+            <Route path="/signup" element={<Signup />}></Route>
+            <Route path="/mycats" element={<MyCats />}></Route>
+            <Route path="/mycats/:catID" element={<CatProfile />}></Route>
+          </Routes>
+        </AppContext>
+      </BrowserRouter>
     );
 }
 

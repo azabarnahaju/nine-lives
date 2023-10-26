@@ -1,0 +1,31 @@
+.catprofile-container {
+    background-color: #BA9E87;
+    margin: 1rem;
+    padding: 2.5rem;
+    border-radius: 1.5rem;
+}
+
+.catprofile-edit-btn, .catprofile-save-btn {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    margin-left: 0.5rem;
+    padding: 0.3rem;
+    width: 4rem;
+    border-radius: 1rem;
+    border: none;
+    background-color: #191919;
+    color: #E3D8D2;
+    box-shadow: 2px 2px #E3D8D2;
+}
+
+.catprofile-edit-btn:hover, .catprofile-save-btn:hover {
+    background-color: #3A2F25;
+}
+
+.catprofile-gen-info-container {
+    display: flex;
+    columns: 2;
+    align-items: center;
+    justify-content:space-around;
+}
+
