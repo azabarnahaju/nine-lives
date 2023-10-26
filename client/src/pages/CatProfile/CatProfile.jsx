@@ -142,7 +142,7 @@ export default function CatProfile() {
       <PageTitle title="my cats" />
       <div className="catprofile-container">
         <h2>
-          General information{" "}
+          General information
           <button
             className="catprofile-edit-btn"
             onClick={() => setIsEditing(true)}

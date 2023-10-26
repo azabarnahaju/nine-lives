@@ -1,24 +1,30 @@
 .add-a-cat-btn {
     position: absolute;
-    bottom: 3rem;
+    bottom: 4rem;
     right: 5rem;
     display: inline-block;
     cursor: pointer;
     outline: none;
-    border: 0;
     vertical-align: middle;
     text-decoration: none;
     font-size: 1rem;
-    color: #E3D8D2;
     text-transform: uppercase;
-    font-family: inherit;
-    padding: 1em 2em;
+    font-family: 'Gruppo', sans-serif;
+    padding: 1rem 3rem;
     border: 2px solid black;
-    border-radius: 1em;
-    background: #554231;
+    border-radius: 0.5rem;
+    background: transparent;
     transform-style: preserve-3d;
     transition: all 175ms cubic-bezier(0, 0, 1, 1);
-    font-size: 1.3rem;
+    font-size: 4rem;
+    filter:drop-shadow(1rem 1rem 10px gray);
+
+}
+
+.add-a-cat-btn:hover {
+    background: #44372c;
+    transform: translate(0, 0.5rem);
+    color: #e6d0c1;
 }
 
 .add-a-cat-submit-btn {

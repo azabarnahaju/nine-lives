@@ -1,6 +1,6 @@
 
 .cats-container {
-    color: #fff;
+    color: #E3D8D2;
     border-radius: 0.25rem;
     max-width: 600px;
     text-align: center;
@@ -10,7 +10,7 @@
     position: relative;
     margin-left: 25rem;
     margin-right: auto;
-    margin-top: 10rem;
+    margin-top: 6rem;
 
 }
 
@@ -22,24 +22,27 @@
     justify-content: center;
     align-items: center;
     text-align: center;
-    background-color: #554231;
+    background-color: #554231f6;
     border-radius: 20%;
+    filter:drop-shadow(1rem 1rem 5px rgba(128, 128, 128, 0.829))
 }
 
 .cat-modal h1 {
-
-    margin-bottom: 0.5rem;
-    padding-bottom: 2.7rem;
-    font-size: 3rem;
+    padding-bottom: 1.5rem;
+    font-size: 4rem;
+    font-family: 'Gruppo', sans-serif;
+    letter-spacing: 4px;
 }
 
 .cat-modal span {
     margin-bottom: 1rem;
-    font-size: 1.5rem;
+    font-size: 2rem;
+    font-family: 'Satisfy', cursive;
+    color: #beb4aed5;
 }
 
 .cat-modal a {
-    color: #fff;
+    color: #E3D8D2;
     position: relative;
     display: inline-block;
     cursor: pointer;
@@ -50,17 +53,22 @@
     margin-top: 0.5rem;
     font-size: 1.5rem;
     padding-bottom: 2rem;
+    font-family: 'Comfortaa', sans-serif;
 }
 
 .cat-modal hr {
     width: 60%;
     border-style: dotted none none;
     border-width: 4px;
-    margin-bottom: 1rem;
-
+    margin-bottom: 2rem;
 }
 
+
 .cat-modal a:hover {
-    color: #a90000;
+    color: #ffffff;
+    transform:scale(1.1);
+    text-shadow: 2px 2px 3px #533b29;
+    font-weight: 600;
+    transition: 0.5s ease-in-out;
 }
 

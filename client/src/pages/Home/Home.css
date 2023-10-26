@@ -9,12 +9,12 @@ body {
 }
 
 .home-container {
-    margin-top: 12rem;
+    margin-top: 14rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-left: 9rem;
-    margin-right: 9rem;
+    margin-left: 15rem;
+    margin-right: 15rem;
 }
 
 .home-text-container {
@@ -23,28 +23,41 @@ body {
 
 .home-img {
     margin: 0;
-    height: 25rem;
+    height: 30rem;
     border-radius: 10rem;
+    filter: drop-shadow(1rem 0.2rem 10px #11111152);
 }
 
 .home-title {
-    font-size: 5rem;
+    font-size: 7rem;
     margin-bottom: 0;
+    font-family: 'Gruppo', sans-serif;
+    color: #2b231b;
 }
 
 .home-motto {
     font-size: 2rem;
     font-style: italic;
     margin-top: 1rem;
+    font-family: 'Satisfy', cursive;
+    color: #7f6451de;
 }
 
 .home-logo {
     position: absolute;
-    height: 6rem;
-    top: 17.6rem;
-    left: 28.2rem;
+    height: 8rem;
+    top: 20.1rem;
+    left: 36rem;
     opacity: 50%;
 }
 
+.home-page-buttons-container {
+    margin-top: 1rem;
+}
 
-
+.home-page-buttons-container button {
+    margin: 1rem;
+    font-family: 'Gruppo', sans-serif;
+    font-weight: bold;
+    font-size: 1.2rem;
+}

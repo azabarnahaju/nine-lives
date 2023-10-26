@@ -1,38 +1,64 @@
 .catprofile-container {
     background-color: #BA9E87;
-    margin: 5rem;
+    margin-right: 6rem;
+    margin-left: 6rem;
+    margin-top: 3rem;
     padding: 3rem;
     border-radius: 1.5rem;
+    filter: drop-shadow(1rem 1rem 10px rgba(82, 68, 58, 0.664))
 }
 
 .catprofile-edit-btn, .catprofile-save-btn {
     margin-top: 0.5rem;
     margin-bottom: 0.5rem;
-    margin-left: 0.5rem;
-    padding: 0.3rem;
+    margin-left: 1rem;
+    padding: 1rem;
     width: 6rem;
     border-radius: 1rem;
     border: none;
     background-color: #191919;
-    color: #E3D8D2;
-    box-shadow: 2px 2px #E3D8D2;
+    color: #3A2F25;
     font-size: 1rem;
+    cursor: pointer;
+    outline: none;
+    border: 0;
+    vertical-align: middle;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-family: 'Gruppo', sans-serif;
+    border: 2px solid rgb(46, 36, 32);
+    border-radius: 1em;
+    background: transparent;
+    transform-style: preserve-3d;
+    transition: all 175ms cubic-bezier(0, 0, 1, 1);
+    font-size: 1.2rem;
+    filter: drop-shadow(0.5rem 0.5rem 5px rgba(82, 66, 56, 0.493));
+    font-weight: bold;
+}
+
+.catprofile-container h2 {
+    font-family: 'Satisfy', cursive;
+    color: #3d3129e8;
+    padding-left: 2rem;
+    font-size: 2.8rem;
+    padding-bottom: 0.5rem;
 }
 
 .catprofile-edit-btn:hover, .catprofile-save-btn:hover {
     background-color: #3A2F25;
+    color: #eedfd1
 }
 
 .catprofile-gen-info-text-container {
-    background-color: #443527;
+    background-color: #443527e0;
     border-radius: 1rem;
-    padding: 1rem;
     font-size: 1.5rem;
     color:#E3D8D2;
     display: flex;
     justify-content: space-around;
     align-items: center;
     width: 70rem;
+    filter: drop-shadow(1rem 1rem 10px rgba(58, 46, 39, 0.836))
 }
 
 .editable-gen-info-container, .static-gen-info-container {
@@ -41,7 +67,11 @@
 
 .editable-gen-info-container td, .static-gen-info-container td {
     padding: 0.5rem;
-    padding-left: 2rem;
+    padding-left: 1rem;
+    font-family: 'Comfortaa', sans-serif;
+    font-size: 1.2rem; 
+    letter-spacing: 1px;
+    color:#E3D8D2;
 }
 
 .editable-gen-info-container tr, .static-gen-info-container tr {
@@ -56,18 +86,27 @@
     padding-left: 1rem;
     background-color: #E3D8D2;
     color:#3A2F25;
+    font-family: 'Comfortaa', sans-serif;
+    font-weight: 700;
+}
+
+.catprofile-gen-info-text-container td b {
+    font-family: 'Gruppo', sans-serif;
+    text-transform: uppercase;
+    font-size: 1.3rem;
+    letter-spacing: 2px;
+    color:#c2a89b;
 }
 
 .catprofile-gen-info-text-container table {
     display: inline-block;
-    
-
 }
 
 .cat-profile-pic {
     height: 20rem;
     border-radius: 2rem;
     border:2px solid #3A2F25;
+    filter:drop-shadow(1rem 1rem 10px rgba(58, 46, 39, 0.726))
 }
 
 .catprofile-gen-info-container {

@@ -20,13 +20,13 @@
 /* Position and sizing of clickable cross button */
 .bm-cross-button {
     transform: scale(1.8);
-    margin-right: -5rem;
+    margin-right: 1rem;
     margin-top: 3rem;
 }
 
 /* Color/shape of close button cross */
 .bm-cross {
-    background: #bdc3c7;
+    background: #b8adad;
 }
 
 /*
@@ -36,19 +36,17 @@ Note: Beware of modifying this element as it can break the animations - you shou
 .bm-menu-wrap {
     position: fixed;
     height: 100%;
-
 }
-
-
 
 /* General sidebar styles */
 .bm-menu {
-
     background: #554231;
-    padding: 7rem 1.5rem;
-    font-size: 4rem;
-    border-top-right-radius: 10%;
-    border-bottom-right-radius: 10%;
+    padding: 6rem 4rem;
+    font-size: 2.5rem;
+    border-top-right-radius: 4rem;
+    border-bottom-right-radius: 4rem;
+    filter:drop-shadow(1rem 1rem 10px rgba(63, 52, 42, 0.829));
+    font-family: 'Comfortaa', sans-serif;
 }
 
 .bm-menu::-webkit-scrollbar {
@@ -57,13 +55,13 @@ Note: Beware of modifying this element as it can break the animations - you shou
 
 /* Morph shape necessary with bubble or elastic */
 .bm-morph-shape {
-    fill: #373a47;
+    fill: #57443234;
 }
 
 /* Wrapper for item list */
 .bm-item-list {
-    color: #b8b7ad;
-    padding: 1em;
+    color: #b8adad;
+    padding: 0.5rem;
 }
 
 /* Individual item */
@@ -80,5 +78,6 @@ Note: Beware of modifying this element as it can break the animations - you shou
 }
 
 .bm-menu a:hover {
-    color: #a90000;
+    color: #1d130a;
+    text-shadow: 1px 1px 3px #1f1a16af;
 }
