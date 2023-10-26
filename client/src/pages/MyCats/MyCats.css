@@ -19,8 +19,9 @@
 
 /* Position and sizing of clickable cross button */
 .bm-cross-button {
-    height: 24px;
-    width: 24px;
+    transform: scale(1.8);
+    margin-right: -5rem;
+    margin-top: 3rem;
 }
 
 /* Color/shape of close button cross */
@@ -76,4 +77,75 @@ Note: Beware of modifying this element as it can break the animations - you shou
 /* Styling of overlay */
 .bm-overlay {
     background: rgba(0, 0, 0, 0.3);
+}
+
+
+
+.cats-container {
+    color: #fff;
+    border-radius: 0.25rem;
+    max-width: 600px;
+    text-align: center;
+    display: grid;
+    grid-auto-flow: column;
+    column-gap: 3rem;
+    position: relative;
+    margin-left: 25rem;
+    margin-right: auto;
+    margin-top: 10rem;
+
+}
+
+.cat-modal {
+    width: 34rem;
+    height: 30rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background-color: #554231;
+    border-radius: 20%;
+}
+
+.cat-modal h1 {
+
+    margin-bottom: 0.5rem;
+    padding-bottom: 2.7rem;
+    font-size: 3rem;
+}
+
+.cat-modal span {
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+}
+
+.cat-modal a {
+    color: #fff;
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    outline: none;
+    border: 0;
+    vertical-align: middle;
+    text-decoration: none;
+    margin-top: 0.5rem;
+    font-size: 1.5rem;
+    padding-bottom: 2rem;
+}
+
+.cat-modal hr {
+    width: 60%;
+    border-style: dotted none none;
+    border-width: 4px;
+    margin-bottom: 1rem;
+
+}
+
+.cat-modal a:hover {
+    color: #a90000;
+}
+
+.bm-menu a:hover {
+    color: #a90000;
 }
