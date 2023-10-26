@@ -1,18 +1,21 @@
-import React from "react";
+
+ import AutocompleteInput from "./Suggestions";
+
 export default function Input({ objValue, onChange, index }) {
   const { label, value } = objValue;
-  
-  return (
-    <div className="input-group">
-      <label htmlFor={label}>{label}</label>
-      <div className="input">
-        <input
-          type="text"
-          id={index}
-          value={value || ""}
-          onChange={(e) => onChange(e, index)}
-        />
-      </div>
-    </div>
-  );
+ 
+  return (     
+        
+       
+            <div className="grid-child-div">
+                <label htmlFor={label}>{label}</label>
+                    <div>
+                        <AutocompleteInput />
+                    </div>
+            </div>
+      
+    
+  )
 }
+
+
