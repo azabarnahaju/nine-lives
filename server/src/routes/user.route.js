@@ -11,11 +11,10 @@ router.get('/', async (req, res) => {
     }
 })
 
-router.get('/:userId', async (req, res) => {
-    const id = req.params.userId
+router.get('/:username', async (req, res) => {
+    const username = req.params.username
     try {
-        const user = await userQuery.getUser(id)
-        console.log(user)
+        const user = await userQuery.getUser(username)
         res.status(200).send(user)
     } catch (err) {
         res.status(500).send(err.message)

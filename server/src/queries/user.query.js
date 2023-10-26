@@ -8,9 +8,9 @@ async function getUsers() {
         console.log(err.message)
     }
 }
-async function getUser(id) {
+async function getUser(username) {
     try {
-        const user = await UserModel.findOne({ _id: id })
+        const user = await UserModel.findOne({ username: username })
         return user
     } catch (err) {
         console.log(err.message)

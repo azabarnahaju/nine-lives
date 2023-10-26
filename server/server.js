@@ -10,19 +10,22 @@ const catRouter = require('./src/routes/cat.route')
 const userRouter = require('./src/routes/user.route')
 const diseaseRouter = require('./src/routes/disease.route')
 
-app.use(express.json())
-
-app.get('/', (req, res) => {
-    res.send('I am working')
+app.use(function (req, res, next) {
+    res.header('Access-Control-Allow-Origin', '*')
+    res.header(
+        'Access-Control-Allow-Headers',
+        'Origin, X-Requested-With, Content-Type, Accept'
+    )
+    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE')
+    next()
 })
 
-// GET, POST, PATCH, REMOVE => /api/v1/users users/:id
-// GET, POST, PATCH, REMOVE => cats, cats/:id
-// GET => disease
+app.use(express.json())
+app.use(express.urlencoded({ extended: false }))
 
 app.use('/api/v1/cats', catRouter)
 app.use('/api/v1/users', userRouter)
-app.use('/api/v1/diseases',diseaseRouter)
+app.use('/api/v1/diseases', diseaseRouter)
 
 async function main() {
     try {
