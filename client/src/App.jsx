@@ -7,6 +7,7 @@ import Signup from './pages/Signup/Signup';
 import MyCats from './pages/MyCats/MyCats';
 import AppContext from './contexts/userContext';
 import CatProfile from './pages/CatProfile/CatProfile';
+import HealthRecord from './pages/HealthRecord/HealthRecord';
 
 function App() {
     return (
@@ -19,6 +20,7 @@ function App() {
             <Route path="/signup" element={<Signup />}></Route>
             <Route path="/mycats" element={<MyCats />}></Route>
             <Route path="/mycats/:catID" element={<CatProfile />}></Route>
+            <Route path='/newhealthrecord' element={<HealthRecord />}></Route>
           </Routes>
         </AppContext>
       </BrowserRouter>
