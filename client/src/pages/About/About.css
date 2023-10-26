@@ -1,7 +1,6 @@
-#icon-container{
-    display: grid;
-    grid-template-columns: repeat(3,15vw);
-    grid-template-rows: repeat(2,10vh); 
-    gap: 20vh 10vw; 
-    position: relative;
+.about-page-title {
+    text-align: center;
+    margin-top: 2rem;
+    padding-bottom: 1.5rem;
+    font-size: 3rem;
 }

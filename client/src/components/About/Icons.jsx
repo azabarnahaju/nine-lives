@@ -8,9 +8,9 @@ import { FaCat, FaPaw, FaSyringe } from "react-icons/fa";
 
 const icon = function (text, iconUrl) {
   return (
-    <div>
+    <div className="icon-container">
       <div className="icon-bg">
-        <IconContext.Provider value={{ color: "#554231", size: "3rem" }}>
+        <IconContext.Provider value={{ color: "#554231", size: "4rem" }}>
           {iconUrl}
         </IconContext.Provider>
       </div>
@@ -21,17 +21,22 @@ const icon = function (text, iconUrl) {
 
 export default function Icons() {
   return (
-    <div id="icon-container">
-      {icon("Create a profile for all of your cats", <HiOutlineDocumentText/>)}
-      {icon("Monitor health records and conditions", <BsHeartPulseFill/>)}
-      {icon("Log symptoms for early detection", <HiMagnifyingGlassCircle/>)}
-      {icon(
-        "Explore detailed breed profiles and learn about potential health risks",<FaCat/>
-      )}
-      {icon(" Track vet visits", <FaPaw/>)}
-      {icon(
-        "Ensure your cat's continued health with a simple vaccination and treatment management system"
-      , <FaSyringe/>)}
+    <div class="icons-container">
+        {icon(
+          "Create a profile for all of your cats",
+          <HiOutlineDocumentText />
+        )}
+        {icon("Monitor health records and conditions", <BsHeartPulseFill />)}
+        {icon("Log symptoms for early detection", <HiMagnifyingGlassCircle />)}
+        {icon(
+          "Explore detailed breed profiles and learn about potential health risks",
+          <FaCat />
+        )}
+        {icon(" Track vet visits", <FaPaw />)}
+        {icon(
+          "Ensure your cat's continued health with a simple vaccination and treatment management system",
+          <FaSyringe />
+        )}
     </div>
   );
 }

@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { useUserContext } from '../../contexts/userContext';
-import { bubble as Menu } from 'react-burger-menu';
 import './MyCats.css';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -10,6 +9,7 @@ import Logout from '../../components/LogoutBtn/Logout';
 import PageTitle from '../../components/PageTitle/PageTitle';
 import ProfileLogo from '../../components/ProfileLogo/ProfileLogo';
 import AddACatBtn from '../../components/AddACatBtn/AddACatBtn';
+
 
 export default function MyCats() {
     // eslint-disable-next-line no-unused-vars
@@ -56,7 +56,10 @@ export default function MyCats() {
             />
 
             <div className='home-text-container'>
-                <PageTitle />
+
+                <h6 className='home-title'>nine lives</h6>
+                <h2 className='home-motto'>My cats</h2>
+
             </div>
             <Navbar />
             {userCats ? (
