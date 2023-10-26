@@ -73,8 +73,8 @@ export default function MyCats() {
                                 {Math.floor(
                                     (Date.now() - new Date(cat.birth)) /
                                         (1000 * 60 * 60 * 24 * 365)
-                                )}
-                                {" "}years old
+                                )}{' '}
+                                years old
                             </span>
                             <hr></hr>
                             <Link to={`/mycats/${cat._id}`}>
