@@ -15,10 +15,10 @@ export default function CatProfile() {
       try {
         const res = await fetch(`http://localhost:4000/api/v1/cats/${catID}`);
         const data = await res.json();
-        console.log(data); 
+        console.log(data);
         if (data) {
-            setCatData(data);
-        }       
+          setCatData(data);
+        }
       } catch (err) {
         console.log(err);
       }
@@ -32,6 +32,8 @@ export default function CatProfile() {
   let genInfoFields;
   let monthsTillNextVacc;
   let daysTillNextVacc;
+  let healthRecords;
+  let vetRecords;
 
   if (catData) {
     catBirthYear = Math.floor(new Date(catData.birth).getFullYear());
@@ -125,14 +127,17 @@ export default function CatProfile() {
       </>
     );
 
-    const remainingDays = 365 - (Date.now() - lastVisitDate)/(1000 * 60 * 60 * 24);
+    const remainingDays =
+      365 - (Date.now() - lastVisitDate) / (1000 * 60 * 60 * 24);
     monthsTillNextVacc = Math.floor(remainingDays / 30);
     daysTillNextVacc = Math.floor(remainingDays % 30);
+
+    healthRecords = catData.health_rec;
+    vetRecords = catData.vet_visit;
   }
 
   const handleSave = () => {
     setIsEditing(false);
-
   };
 
   return catData ? (
@@ -171,7 +176,9 @@ export default function CatProfile() {
                 <td>
                   <b>Next vaccination due in</b>
                 </td>
-                <td>{monthsTillNextVacc} months, {daysTillNextVacc} days</td>
+                <td>
+                  {monthsTillNextVacc} months, {daysTillNextVacc} days
+                </td>
               </tr>
               <tr>
                 <td>
@@ -187,6 +194,96 @@ export default function CatProfile() {
           <div className="catprofile-pic-container">
             <img className="cat-profile-pic" src={catData.image} />
           </div>
+        </div>
+        <h2>
+          Health records<button className="new-hr-btn">ADD NEW</button>
+        </h2>
+        <div className="catprofile-hr-container">
+          <table className="hr-table">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Symptoms</th>
+                <th>Result</th>
+                <th>Comments</th>
+              </tr>
+            </thead>
+            <tbody>
+              {healthRecords.length <= 3
+                ? healthRecords.map((rec) => (
+                    <tr>
+                      <td>{rec.date}</td>
+                      <td>{rec.symptoms.join(", ")}</td>
+                      <td>{rec.result}</td>
+                      <td>{rec.comment}</td>
+                      <td>
+                        <button>EDIT</button>
+                        <button>DELETE</button>
+                      </td>
+                    </tr>
+                  ))
+                : healthRecords.splice(0, 3).map((rec) => (
+                    <>
+                      <tr>
+                        <td>{rec.date}</td>
+                        <td>{rec.symptoms.join(", ")}</td>
+                        <td>{rec.result}</td>
+                        <td>{rec.comment}</td>
+                        <td>
+                          <button>EDIT</button>
+                          <button>DELETE</button>
+                        </td>
+                      </tr>
+                      <button>LOAD MORE</button>
+                    </>
+                  ))}
+            </tbody>
+          </table>
+        </div>
+        <h2>
+          Vet records<button className="new-hr-btn">ADD NEW</button>
+        </h2>
+        <div className="catprofile-vr-container">
+          <table className="vr-table">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Symptoms</th>
+                <th>Result</th>
+                <th>Comments</th>
+              </tr>
+            </thead>
+            <tbody>
+              {vetRecords.length <= 3
+                ? vetRecords.map((rec) => (
+                    <tr>
+                      <td>{rec.date}</td>
+                      <td>{rec.symptoms.join(", ")}</td>
+                      <td>{rec.result}</td>
+                      <td>{rec.comment}</td>
+                      <td>
+                        <button>EDIT</button>
+                        <button>DELETE</button>
+                      </td>
+                    </tr>
+                  ))
+                : vetRecords.splice(0, 3).map((rec) => (
+                    <>
+                      <tr>
+                        <td>{rec.date}</td>
+                        <td>{rec.symptoms.join(", ")}</td>
+                        <td>{rec.result}</td>
+                        <td>{rec.comment}</td>
+                        <td>
+                          <button>EDIT</button>
+                          <button>DELETE</button>
+                        </td>
+                      </tr>
+                      <button>LOAD MORE</button>
+                    </>
+                  ))}
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
