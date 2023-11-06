@@ -4,11 +4,8 @@ const {
     parsed: { MONGO_URL },
 } = require('dotenv').config();
 const app = express();
-
 const PORT = '4000';
-const catRouter = require('./src/routes/cat.route');
-const userRouter = require('./src/routes/user.route');
-const diseaseRouter = require('./src/routes/disease.route');
+const { errorHandler } = require('./src/middlewares/error.middleware');
 
 app.use(function (req, res, next) {
     res.header('Access-Control-Allow-Origin', '*');
@@ -22,10 +19,11 @@ app.use(function (req, res, next) {
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(errorHandler);
 
-app.use('/api/v1/cats', catRouter);
-app.use('/api/v1/users', userRouter);
-app.use('/api/v1/diseases', diseaseRouter);
+app.use('/api/v1/cats', require('./src/routes/cat.route'));
+app.use('/api/v1/users', require('./src/routes/user.route'));
+app.use('/api/v1/diseases', require('./src/routes/disease.route'));
 
 async function main() {
     try {
