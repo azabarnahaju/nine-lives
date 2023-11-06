@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
-import Input from './Input.jsx';
 import './HealthRecord.css';
 import Navbar from "../../components/Navbar/Navbar.jsx";
 import PageTitle from "../../components/PageTitle/PageTitle.jsx";
 import { ToastContainer, toast } from 'react-toastify';
 import React, { Component } from 'react';
+import AutocompleteInput from "./Suggestions.jsx";
 
 
 
@@ -42,7 +42,7 @@ export default function HealthRecord(){
         };
 
         getDiseases();
-        console.log(allDiseases)
+
         
     }, []);
 
@@ -57,14 +57,14 @@ export default function HealthRecord(){
             })
         }
         getSymptoms();
-        console.log(allSymptoms) 
+
     }
 
     const handleChange = (e, index) => {
         const values = [...formValues];
         values[index].value = e.target.value;
         setFormValues(values);
-        console.log(index)
+
     };
 
     const handleAddField = (e) => {
@@ -86,27 +86,23 @@ export default function HealthRecord(){
     return (
     !isLoading?
         <>
-        <Navbar />
+        
         <PageTitle title={"New health record"} />
-        <div className="form-container">
+        <div className="health-form-container">
             <form onSubmit={handleSubmit} className="health-form">
                 <div 
-                    className="parent-div"
+                    className="autocomplete-parent-div"
                 > 
                 {formValues.map((obj, index) => (
-                    <Input
-                        key={index}
-                        objValue={obj}
-                        onChange={handleChange}
-                        index={index}
-                    />
+                    <AutocompleteInput />
                 ))}
                 </div>
-                    <div className="center">
-                        <button className="add-btn" id="addInput" onClick={handleAddField}>Add new symptom</button>
+                    <div className="center-search-button">
+                        <button className="health-form-add-btn" onClick={handleAddField}>Add new symptom</button>
                     </div>
-                
-                <button type="submit" className="submit-btn">Search</button>         
+                    <div className="health-form-submit-btn-container" >
+                        <button type="submit" className="health-form-submit-btn">Search</button>
+                    </div>         
             </form>
         </div>
     </>
