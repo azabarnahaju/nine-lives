@@ -103,6 +103,9 @@ export default function AddACatBtn({ isNewCatAdded, setIsNewCatAdded }) {
                 <label htmlFor='fav_toy'>Favorite Toy</label>
                 <input type='text' id='fav_toy' name='fav_toy' />
 
+                <label htmlFor='image'>Image</label>
+                <input type='text' id='image' name='image' />
+                    
                 <button
                     className='add-a-cat-submit-btn'
                     type='submit'

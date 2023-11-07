@@ -1,4 +1,4 @@
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
 
 const CatSchema = mongoose.Schema({
     name: String,
@@ -8,6 +8,11 @@ const CatSchema = mongoose.Schema({
     fav_toy: String,
     curr_vacc: Boolean,
     //lastvacc
+    images: [
+        {
+            type: String,
+        },
+    ],
     last_visit: Date,
     health_rec: [
         {
@@ -28,8 +33,8 @@ const CatSchema = mongoose.Schema({
     vaccination: [
         { get_date: Date, name: String, exp_date: Date, comment: String },
     ],
-})
+});
 
-const CatModel = mongoose.model('Cat', CatSchema)
+const CatModel = mongoose.model('Cat', CatSchema);
 
-module.exports = CatModel
+module.exports = CatModel;

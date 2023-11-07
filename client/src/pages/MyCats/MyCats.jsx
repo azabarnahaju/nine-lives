@@ -64,6 +64,7 @@ export default function MyCats() {
           {userCats.map((cat) => (
             <div key={cat._id} className="cat-modal">
               <h1>{cat.name}</h1>
+              {cat.images ? <img className="cat-avatar" src={cat.images[0]} width='250' /> : ""}
               <span>
                 {Math.floor(
                   (Date.now() - new Date(cat.birth)) /

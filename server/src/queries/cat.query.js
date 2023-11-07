@@ -52,20 +52,34 @@ async function postCat(req, res) {
         health_rec,
         vet_visit,
         vaccination,
+        image,
     } = req.body;
     try {
-        const cat = await CatModel.create({
-            name,
-            birth,
-            breed,
-            color,
-            fav_toy,
-            curr_vacc,
-            last_visit,
-            health_rec,
-            vet_visit,
-            vaccination,
-        });
+        const cat = await CatModel.create(
+            {
+                name,
+                birth,
+                breed,
+                color,
+                fav_toy,
+                curr_vacc,
+                last_visit,
+                health_rec,
+                vet_visit,
+                vaccination,
+            }, 
+        );
+        if (image) {
+            await CatModel.findOneAndUpdate(
+                { _id: cat._id },
+                {
+                    $push: {
+                        images: image,
+                    },
+                }
+            );
+        }
+        
         if (cat) {
             return res.status(201).json(cat);
         } else {
@@ -113,7 +127,9 @@ async function patchCat(req, res) {
         health_rec,
         vet_visit,
         vaccination,
+        image,
     } = req.body;
+
     try {
         if (!isValidObjectId(id)) {
             res.status(400);
@@ -160,6 +176,16 @@ async function patchCat(req, res) {
                 {
                     $push: {
                         vaccination: vaccination,
+                    },
+                }
+            );
+        }
+        if (image) {
+            await CatModel.findOneAndUpdate(
+                { _id: id },
+                {
+                    $push: {
+                        images: image,
                     },
                 }
             );
