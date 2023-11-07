@@ -5,6 +5,37 @@ import { useParams } from "react-router-dom";
 import ProfileLogo from "../../components/ProfileLogo/ProfileLogo";
 import PageTitle from "../../components/PageTitle/PageTitle";
 
+const url = "http://localhost:4000/api/v1/cats"
+const catBirthYear = (birth) => Math.floor(new Date(birth).getFullYear());
+const catAge = (birth) => Math.floor((Date.now() - new Date(birth)) / (1000 * 60 * 60 * 24 * 365));
+const lastVisitDate = (vet_visit) => {
+  const lastVisit = vet_visit.reduce((acc, curr) => {
+    return new Date(acc.date) > new Date(curr.date) ? acc : curr;
+  });
+  return new Date(lastVisit.date);
+}
+const daysUntilNextVacc = (lastVisit) =>  365 - (Date.now() - lastVisit) / (1000 * 60 * 60 * 24);
+const patchCatProfile = async (body, catData) => {
+  console.log(catData._id)
+  try {
+    const response = await fetch(`${url}/${catData._id}`, {
+      method: "PATCH",
+      headers: {
+        'Content-Type': 'application/json',
+      },
+        body: JSON.stringify(body),
+    });
+    console.log(response);
+    if (response.ok) {
+      alert(`${catData.name}'s profile update was successful!`)
+    } else {
+      throw new Error("Error updating the cat profile.")
+    }
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 export default function CatProfile() {
   let { catID } = useParams();
   const [catData, setCatData] = useState(false);
@@ -24,29 +55,15 @@ export default function CatProfile() {
       }
     }
     fetchCatProfile(catID);
-  }, []);
+  }, [isEditing]);
 
-  let catBirthYear;
-  let catAge;
-  let lastVisitDate;
   let genInfoFields;
-  let monthsTillNextVacc;
-  let daysTillNextVacc;
-  let healthRecords;
-  let vetRecords;
+  const handleInfoChange = (e) => {
+    e.target.setAttribute("hasChanged", true)
+    e.target.setAttribute("value", e.target.value)
+  };
 
   if (catData) {
-    catBirthYear = Math.floor(new Date(catData.birth).getFullYear());
-    catAge = Math.floor(
-      (Date.now() - new Date(catData.birth)) / (1000 * 60 * 60 * 24 * 365)
-    );
-
-    const lastVisit = catData.vet_visit.reduce((acc, curr) => {
-      return new Date(acc.date) > new Date(curr.date) ? acc : curr;
-    });
-    console.log(new Date(lastVisit.date));
-    lastVisitDate = new Date(lastVisit.date);
-
     genInfoFields = isEditing ? (
       <>
         <tr>
@@ -54,7 +71,12 @@ export default function CatProfile() {
             <b>Name:</b>
           </td>
           <td>
-            <input value={catData.name} key="name" />
+            <input
+              defaultValue={catData.name}
+              key="name"
+              id="name"
+              onChange={handleInfoChange}
+            />
           </td>
         </tr>
         <tr>
@@ -62,7 +84,12 @@ export default function CatProfile() {
             <b> Birth year:</b>
           </td>
           <td>
-            <input value={catBirthYear} key="birth" />
+            <input
+              defaultValue={catBirthYear(catData.birth)}
+              key="birth"
+              id="birth"
+              onChange={handleInfoChange}
+            />
           </td>
         </tr>
         <tr>
@@ -70,7 +97,12 @@ export default function CatProfile() {
             <b>Breed:</b>
           </td>
           <td>
-            <input value={catData.breed} key="breed" />
+            <input
+              value={catData.breed}
+              key="breed"
+              id="breed"
+              onChange={handleInfoChange}
+            />
           </td>
         </tr>
         <tr>
@@ -78,7 +110,12 @@ export default function CatProfile() {
             <b>Colour:</b>
           </td>
           <td>
-            <input value={catData.color} key="color" />
+            <input
+              value={catData.color}
+              key="color"
+              id="color"
+              onChange={handleInfoChange}
+            />
           </td>
         </tr>
         <tr>
@@ -86,7 +123,12 @@ export default function CatProfile() {
             <b>Favourite toy:</b>
           </td>
           <td>
-            <input value={catData.fav_toy} key="fav_toy" />
+            <input
+              value={catData.fav_toy}
+              key="fav_toy"
+              id="fav_toy"
+              onChange={handleInfoChange}
+            />
           </td>
         </tr>
       </>
@@ -103,7 +145,7 @@ export default function CatProfile() {
             <b> Birth year:</b>
           </td>
           <td>
-            {catBirthYear} ({catAge} years old)
+            {catBirthYear(catData.birth)} ({catAge(catData.birth)} years old)
           </td>
         </tr>
         <tr>
@@ -126,18 +168,20 @@ export default function CatProfile() {
         </tr>
       </>
     );
-
-    const remainingDays =
-      365 - (Date.now() - lastVisitDate) / (1000 * 60 * 60 * 24);
-    monthsTillNextVacc = Math.floor(remainingDays / 30);
-    daysTillNextVacc = Math.floor(remainingDays % 30);
-
-    healthRecords = catData.health_rec;
-    vetRecords = catData.vet_visit;
   }
 
   const handleSave = () => {
     setIsEditing(false);
+    const profileForm = document.querySelector(".editable-gen-info-container");
+    const inputs = profileForm.querySelectorAll("input");
+    const body = {};
+    inputs.forEach(i => {
+      if (i.getAttribute("hasChanged")) {
+        body[i.id] = i.value;
+        i.setAttribute("hasChanged", false)
+      };
+    });
+  patchCatProfile(body, catData);
   };
 
   return catData ? (
@@ -151,11 +195,12 @@ export default function CatProfile() {
           <button
             className="catprofile-edit-btn"
             onClick={() => setIsEditing(true)}
+            disabled={isEditing ? true : false}
           >
             Edit
           </button>
           {isEditing && (
-            <button className="catprofile-save-btn" onClick={handleSave}>
+            <button type="submit" className="catprofile-save-btn" onClick={handleSave}>
               Save
             </button>
           )}
@@ -177,7 +222,14 @@ export default function CatProfile() {
                   <b>Next vaccination due in</b>
                 </td>
                 <td>
-                  {monthsTillNextVacc} months, {daysTillNextVacc} days
+                  {Math.floor(
+                    daysUntilNextVacc(lastVisitDate(catData.vet_visit)) / 30
+                  )}{" "}
+                  months,{" "}
+                  {Math.floor(
+                    daysUntilNextVacc(lastVisitDate(catData.vet_visit)) % 30
+                  )}{" "}
+                  days
                 </td>
               </tr>
               <tr>
@@ -185,8 +237,9 @@ export default function CatProfile() {
                   <b>Last visit to the vet:</b>
                 </td>
                 <td>
-                  {lastVisitDate.getDate()}/{lastVisitDate.getMonth()}/
-                  {lastVisitDate.getFullYear()}
+                  {lastVisitDate(catData.vet_visit).getDate()}/
+                  {lastVisitDate(catData.vet_visit).getMonth()}/
+                  {lastVisitDate(catData.vet_visit).getFullYear()}
                 </td>
               </tr>
             </table>
@@ -209,8 +262,8 @@ export default function CatProfile() {
               </tr>
             </thead>
             <tbody>
-              {healthRecords.length <= 3
-                ? healthRecords.map((rec) => (
+              {catData.health_rec.length <= 3
+                ? catData.health_rec.map((rec) => (
                     <tr>
                       <td>{rec.date}</td>
                       <td>{rec.symptoms.join(", ")}</td>
@@ -222,7 +275,7 @@ export default function CatProfile() {
                       </td>
                     </tr>
                   ))
-                : healthRecords.splice(0, 3).map((rec) => (
+                : catData.health_rec.splice(0, 3).map((rec) => (
                     <>
                       <tr>
                         <td>{rec.date}</td>
@@ -254,8 +307,8 @@ export default function CatProfile() {
               </tr>
             </thead>
             <tbody>
-              {vetRecords.length <= 3
-                ? vetRecords.map((rec) => (
+              {catData.vet_visit.length <= 3
+                ? catData.vet_visit.map((rec) => (
                     <tr>
                       <td>{rec.date}</td>
                       <td>{rec.symptoms.join(", ")}</td>
@@ -267,12 +320,57 @@ export default function CatProfile() {
                       </td>
                     </tr>
                   ))
-                : vetRecords.splice(0, 3).map((rec) => (
+                : catData.vet_visit.splice(0, 3).map((rec) => (
                     <>
                       <tr>
                         <td>{rec.date}</td>
                         <td>{rec.symptoms.join(", ")}</td>
                         <td>{rec.result}</td>
+                        <td>{rec.comment}</td>
+                        <td>
+                          <button>EDIT</button>
+                          <button>DELETE</button>
+                        </td>
+                      </tr>
+                      <button>LOAD MORE</button>
+                    </>
+                  ))}
+            </tbody>
+          </table>
+        </div>
+        <h2>
+          Vaccination records<button className="new-vr-btn">ADD NEW</button>
+        </h2>
+        <div className="catprofile-vr-container">
+          <table className="vr-table">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Expiration</th>
+                <th>Type</th>
+                <th>Comments</th>
+              </tr>
+            </thead>
+            <tbody>
+              {catData.vaccination.length <= 3
+                ? catData.vaccination.map((rec) => (
+                    <tr>
+                      <td>{rec.get_date}</td>
+                      <td>{rec.exp_date}</td>
+                      <td>{rec.type}</td>
+                      <td>{rec.comment}</td>
+                      <td>
+                        <button>EDIT</button>
+                        <button>DELETE</button>
+                      </td>
+                    </tr>
+                  ))
+                : catData.vaccination.splice(0, 3).map((rec) => (
+                    <>
+                      <tr>
+                        <td>{rec.get_date}</td>
+                        <td>{rec.exp_date}</td>
+                        <td>{rec.type}</td>
                         <td>{rec.comment}</td>
                         <td>
                           <button>EDIT</button>

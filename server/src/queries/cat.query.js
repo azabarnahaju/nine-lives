@@ -101,7 +101,7 @@ async function deleteCat(req, res) {
 // @desc    Update cat
 // @route   PATCH /api/v1/cats/:catId
 async function patchCat(req, res) {
-    const id = req.params.id;
+    const id = req.params.catId;
     const {
         name,
         birth,

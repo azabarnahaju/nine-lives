@@ -18,11 +18,11 @@ async function getUsers(req, res) {
 }
 
 // @desc    Get user
-// @route   GET /api/v1/users/:username
+// @route   GET /api/v1/users/:id
 async function getUser(req, res) {
-    const username = req.params.username;
+    const id = req.params.id;
     try {
-        const user = await UserModel.findOne({ username: username });
+        const user = await UserModel.findOne({ _id: id });
         if (!user) {
             res.status(404);
             throw new Error('User not found!');
@@ -74,7 +74,9 @@ async function deleteUser(req, res) {
 // @desc    Update user
 // @route   PATCH /api/v1/users/:id
 async function patchUser(req, res) {
-    const id = req.params.id;
+    const id = req.params.userId;
+    console.log(id);
+    console.log(req.body);
     const { username, email, password, cats } = req.body;
     try {
         if (!isValidObjectId(id)) {

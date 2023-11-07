@@ -26,7 +26,7 @@ const CatSchema = mongoose.Schema({
         },
     ],
     vaccination: [
-        { get_date: Date, type: String, exp_date: Date, comment: String },
+        { get_date: Date, name: String, exp_date: Date, comment: String },
     ],
 })
 
