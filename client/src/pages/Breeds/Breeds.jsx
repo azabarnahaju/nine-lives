@@ -3,6 +3,8 @@ import './Breeds.css';
 import ProfileLogo from '../../components/ProfileLogo/ProfileLogo';
 import PageTitle from '../../components/PageTitle/PageTitle';
 import { useNavigate,Link } from 'react-router-dom';
+import BackBtn from '../../components/BackBtn/BackBtn';
+import Navbar from '../../components/Navbar/Navbar';
 export default function Breeds() {
     const [catBreeds, setCatBreeds] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
@@ -27,7 +29,8 @@ export default function Breeds() {
 
     return (
         <>
-            <Link to={'/mycats'}> button</Link>
+            <Navbar />
+            <BackBtn path={'/mycats'} />
             <div className='home-text-container'>
                 <ProfileLogo />
                 <PageTitle title={'Breeds'} />

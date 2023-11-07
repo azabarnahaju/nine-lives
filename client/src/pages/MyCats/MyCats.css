@@ -1,17 +1,17 @@
-
 .cats-container {
     color: #E3D8D2;
     border-radius: 0.25rem;
     max-width: 600px;
     text-align: center;
     display: grid;
-    grid-auto-flow: column;
+    grid-template-columns: 1fr 1fr;
+
     column-gap: 3rem;
+    row-gap: 2rem;
     position: relative;
     margin-left: 25rem;
     margin-right: auto;
     margin-top: 6rem;
-
 }
 
 .cat-modal {
@@ -24,7 +24,7 @@
     text-align: center;
     background-color: #554231f6;
     border-radius: 20%;
-    filter:drop-shadow(1rem 1rem 5px rgba(128, 128, 128, 0.829))
+    filter: drop-shadow(1rem 1rem 5px rgba(128, 128, 128, 0.829))
 }
 
 .cat-modal h1 {
@@ -66,9 +66,12 @@
 
 .cat-modal a:hover {
     color: #ffffff;
-    transform:scale(1.1);
+    transform: scale(1.1);
     text-shadow: 2px 2px 3px #533b29;
     font-weight: 600;
     transition: 0.5s ease-in-out;
 }
 
+.cats-parent-container {
+    padding-bottom: 2rem;
+}

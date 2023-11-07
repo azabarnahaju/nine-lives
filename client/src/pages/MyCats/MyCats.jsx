@@ -14,6 +14,7 @@ export default function MyCats() {
   // eslint-disable-next-line no-unused-vars
   const { currUser, setCurrUser } = useUserContext();
   const [userCats, setUserCats] = useState(false);
+  const [isNewCatAdded, setIsNewCatAdded] = useState(false);
   useEffect(() => {
     const getCats = async () => {
       try {
@@ -34,11 +35,11 @@ export default function MyCats() {
       }
     };
     getCats();
-  }, []);
+  }, [isNewCatAdded]);
   return (
     <div className="cats-parent-container">
       <Navbar />
-      <AddACatBtn />
+      <AddACatBtn isNewCatAdded={isNewCatAdded} setIsNewCatAdded={setIsNewCatAdded} />
       <Logout />
       <ToastContainer
         position="top-center"

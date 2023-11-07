@@ -17,7 +17,7 @@
     transform-style: preserve-3d;
     transition: all 175ms cubic-bezier(0, 0, 1, 1);
     font-size: 4rem;
-    filter:drop-shadow(1rem 1rem 10px gray);
+    filter: drop-shadow(1rem 1rem 10px gray);
 
 }
 
@@ -50,13 +50,15 @@
 .add-a-cat-form {
     display: flex;
     flex-direction: column;
-    width: 300px;
     margin: auto;
 }
 
 .add-a-cat-form label {
     font-weight: bold;
     margin-top: 10px;
+    font-size: x-large;
+    text-align: center;
+    color: #44372c;
 }
 
 .add-a-cat-form input {
@@ -64,14 +66,16 @@
     padding: 5px;
     border-radius: 5px;
     border: 1px solid #ccc;
+    width: 30rem;
+    height: 2rem;
+
 }
 
 .add-a-cat-submit-btn {
-    background-color: #4CAF50;
+    background-color: #44372c;
     /* Green */
     border: none;
     color: white;
-    padding: 15px 32px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
@@ -81,17 +85,26 @@
 
 .add-a-cat-modal {
     position: absolute;
+    top: 18rem;
+    right: 45rem;
+    z-index: 2;
+    background-color: #f1f1f1;
+    width: 30rem;
+    height: 27rem;
+    border-radius: 2%;
+
 }
 
 .add-a-cat-modal-esc {
     position: absolute;
-    background-color: #4CAF50;
+    background-color: #44372c;
     /* Green */
     border: none;
     color: white;
-    padding: 6px 10px;
-    margin-left: 14.7rem;
+    padding: 2px 8px;
+    margin-left: 28.2rem;
     top: -0.6rem;
+    border-radius: 20%;
 
 
     text-align: center;
@@ -100,4 +113,10 @@
     font-size: 20px;
     margin-top: 10px;
 
+}
+
+.breed-select {
+    color: black;
+    height: 2rem;
+    text-align: center;
 }

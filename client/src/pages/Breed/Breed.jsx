@@ -3,6 +3,8 @@ import { useState, useEffect } from 'react';
 import ProfileLogo from '../../components/ProfileLogo/ProfileLogo';
 import PageTitle from '../../components/PageTitle/PageTitle';
 import './Breed.css';
+import BackBtn from '../../components/BackBtn/BackBtn';
+import Navbar from '../../components/Navbar/Navbar';
 //https://api.thecatapi.com/v1/images/search?limit=1&breed_ids=beng&api_key=live_Rnqbekm4oLMUVmPAV6NnTVescxXXDjZwl9uMURztpfzWE2tUb7Ra6lhcfSWznKHJ
 export default function Breed() {
     const [catBreedDetails, setCatBreedDetails] = useState([]);
@@ -54,7 +56,8 @@ export default function Breed() {
     } = catBreedDetails.breeds[0];
     return (
         <>
-            <Link to={'/breeds'}> button</Link>
+            <Navbar />
+            <BackBtn path={'/breeds'} />
             <div className='home-text-container'>
                 <ProfileLogo />
                 <PageTitle title={name} />
