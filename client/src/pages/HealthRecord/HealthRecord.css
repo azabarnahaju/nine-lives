@@ -95,7 +95,7 @@
 .suggestion-sidebar {
   width: 15vw; 
   padding: 20px; 
-  height: 50%; 
+  height: 30%; 
   position: fixed; 
   right: 0vw;
   top: 10vh;

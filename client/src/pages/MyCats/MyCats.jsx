@@ -81,7 +81,7 @@ export default function MyCats() {
                                 Show Cat Profile
                             </Link>
                             <Link to='/catprofile'>Log Vet Visit</Link>
-                            <Link to='/catprofile'>Log Health Record</Link>
+                            <Link to='/newhealthrecord'>Log Health Record</Link>
                         </div>
                     ))}
                 </div>

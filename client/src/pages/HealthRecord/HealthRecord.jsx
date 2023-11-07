@@ -64,6 +64,7 @@ export default function HealthRecord() {
     return (
         !isLoading ? (
             <>
+                <Navbar />
                 <PageTitle title={"New health record"} />
                 <div className="health-form-container">
                     <form onSubmit={handleSubmit} className="health-form">
