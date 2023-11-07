@@ -8,6 +8,7 @@ import MyCats from './pages/MyCats/MyCats';
 import AppContext from './contexts/userContext';
 import CatProfile from './pages/CatProfile/CatProfile';
 import HealthRecord from './pages/HealthRecord/HealthRecord';
+import Profile from './pages/Profile/Profile';
 
 function App() {
     return (
@@ -20,7 +21,8 @@ function App() {
             <Route path="/signup" element={<Signup />}></Route>
             <Route path="/mycats" element={<MyCats />}></Route>
             <Route path="/mycats/:catID" element={<CatProfile />}></Route>
-            <Route path='/newhealthrecord' element={<HealthRecord />}></Route>
+            <Route path="/newhealthrecord" element={<HealthRecord />}></Route>
+            <Route path="/profile/:userID" element={<Profile />}></Route>
           </Routes>
         </AppContext>
       </BrowserRouter>
@@ -32,8 +34,7 @@ export default App;
 /* 
    
        
-        <Route path="/mycats/:id" element={<CatProfile />}></Route>
         <Route path="/breeds" element={<Breeds />}></Route>
         <Route path="/breeds/:id" element={<BreedProfile />}></Route>
-        <Route path="/profile" element={<Profile />}></Route> 
+        
 */
