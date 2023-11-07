@@ -59,7 +59,7 @@ export default function Login() {
                     value={{
                         color: '#554231',
                         size: '4rem',
-                        className: 'login-icon',
+                        className: 'login-home-icon',
                     }}
                 >
                     <AiFillHome />

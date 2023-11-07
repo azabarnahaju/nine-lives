@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import './HealthRecord.css';
 import Navbar from "../../components/Navbar/Navbar.jsx";
@@ -87,7 +88,7 @@ export default function HealthRecord() {
                     <div className="diseases-container-div">
                         <DiseaseResults
                             allDiseases={allDiseases}
-                            symptoms={formValues} // Pass formValues to DiseaseResults
+                            symptoms={formValues} 
                         />
                     </div>
                 )}
@@ -98,3 +99,4 @@ export default function HealthRecord() {
         )
     );
 }
+

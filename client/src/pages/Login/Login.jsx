@@ -32,47 +32,47 @@ export default function Login() {
     };
 
     return (
-        <div>
-            <Link to='/home'>
-                <IconContext.Provider
-                    value={{
-                        color: '#554231',
-                        size: '4rem',
-                        className: 'login-icon',
-                    }}
-                >
-                    <AiFillHome />
-                </IconContext.Provider>
-            </Link>
-
-            <form className='login-form'>
-                <IconContext.Provider
-                    value={{
-                        color: '#554231',
-                        size: '8rem',
-                        className: 'login-icon',
-                    }}
-                >
-                    <BiSolidUser />
-                </IconContext.Provider>
-                <div className='input-container'>
-                    <input
-                        className='username-input'
-                        type='text'
-                        placeholder='username'
-                        onChange={(e) => setUsername(e.target.value)}
-                    />
-                    <input
-                        className='password-input'
-                        type='password'
-                        placeholder='password'
-                        onChange={(e) => setPassword(e.target.value)}
-                    />
-                </div>
-                <button className='login-btn' onClick={setUser}>
-                    Log in
-                </button>
-            </form>
+      <div>
+        <div className="login-home-icon">
+          <Link to="/home">
+            <IconContext.Provider
+              value={{
+                color: "#554231",
+                size: "4rem",
+              }}
+            >
+              <AiFillHome />
+            </IconContext.Provider>
+          </Link>
         </div>
+        <form className="login-form">
+          <IconContext.Provider
+            value={{
+              color: "#554231",
+              size: "8rem",
+              className: "login-icon",
+            }}
+          >
+            <BiSolidUser />
+          </IconContext.Provider>
+          <div className="input-container">
+            <input
+              className="username-input"
+              type="text"
+              placeholder="username"
+              onChange={(e) => setUsername(e.target.value)}
+            />
+            <input
+              className="password-input"
+              type="password"
+              placeholder="password"
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </div>
+          <button className="login-btn" onClick={setUser}>
+            Log in
+          </button>
+        </form>
+      </div>
     );
 }

@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { IconContext } from 'react-icons/lib';
 import { AiFillHome } from 'react-icons/ai';
 import { BiSolidUser } from 'react-icons/bi';
-
+import ProfileLogo from "../../components/ProfileLogo/ProfileLogo";
 
 export default function About() {
     return (
@@ -13,19 +13,19 @@ export default function About() {
           <IconContext.Provider
             value={{
               color: "#554231",
-              size: "3rem",
-              className: "login-icon",
+              size: "4rem",
+              className: "login-home-icon",
             }}
           >
             <AiFillHome />
           </IconContext.Provider>
         </Link>
-        <h3 className="profile-logo">nine lives</h3>
+        <ProfileLogo />
         <Link to="/login">
           <IconContext.Provider
             value={{
               color: "#554231",
-              size: "3rem",
+              size: "4rem",
               className: "user-icon",
             }}
           >

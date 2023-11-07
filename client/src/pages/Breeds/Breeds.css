@@ -1,0 +1,39 @@
+.breed-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    row-gap: 3rem;
+    margin: 4rem 0rem 2rem 8rem;
+
+}
+
+.breed-card {
+    width: 20rem;
+    height: 20rem;
+    border: solid;
+    text-align: center;
+    border-radius: 20%;
+    overflow: hidden;
+    font-family: 'Satisfy', cursive;
+    color: black;
+    border: 2px solid black;
+    border-radius: 1em;
+    background: #554231;
+    transition: ease-in-out 1s;
+    filter: drop-shadow(1rem 1rem 10px gray)
+}
+
+.breed-card img {
+    width: 100%;
+    display: block;
+    object-fit: cover;
+    margin-bottom: 1rem;
+}
+
+.breed-card h1 {
+    margin-bottom: 2rem;
+}
+
+.breed-card:hover {
+    transform: scale(1.2);
+    transition: ease-in-out 1s;
+}
