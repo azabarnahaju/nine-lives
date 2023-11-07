@@ -73,34 +73,9 @@ export default function MyCats() {
               <hr></hr>
               <Link to={`/mycats/${cat._id}`}>Show Cat Profile</Link>
               <Link to="/catprofile">Log Vet Visit</Link>
-              <Link to="/catprofile">Log Health Record</Link>
+              <Link to="/newhealthrecord">Log Health Record</Link>
             </div>
-
-            <Navbar />
-            {userCats ? (
-                <div className='cats-container'>
-                    {userCats.map((cat) => (
-                        <div key={cat._id} className='cat-modal'>
-                            <h1>{cat.name}</h1>
-                            <span>
-                                {Math.floor(
-                                    (Date.now() - new Date(cat.birth)) /
-                                        (1000 * 60 * 60 * 24 * 365)
-                                )}{' '}
-                                years old
-                            </span>
-                            <hr></hr>
-                            <Link to={`/mycats/${cat._id}`}>
-                                Show Cat Profile
-                            </Link>
-                            <Link to='/catprofile'>Log Vet Visit</Link>
-                            <Link to='/newhealthrecord'>Log Health Record</Link>
-                        </div>
-                    ))}
-                </div>
-            ) : (
-                <h1>Loading</h1>
-            )}
+          ))}
         </div>
       ) : (
         <h1>Loading</h1>
