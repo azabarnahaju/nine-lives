@@ -87,6 +87,7 @@ export default function Profile() {
           `http://localhost:4000/api/v1/users/${userID}`
         );
         const data = await response.json();
+        
         setUserData(data);
       } catch (err) {
         console.log(err);

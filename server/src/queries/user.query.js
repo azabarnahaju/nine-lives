@@ -21,6 +21,7 @@ async function getUsers(req, res) {
 // @route   GET /api/v1/users/:userId
 async function getUser(req, res) {
     const id = req.params.userId;
+    console.log(id);
     try {
         const user = await UserModel.findOne({ _id: id });
         if (!user) {
@@ -36,12 +37,11 @@ async function getUser(req, res) {
 
 // @desc    Get user
 // @route   GET /api/v1/users/:username/:password
-async function getUser(req, res) {
+async function getUserLogin(req, res) {
     const username = req.params.username;
     const password = req.params.password;
     try {
         const user = await UserModel.findOne({ username: username, password: password });
-        console.log(!user);
         if (!user) {
             res.status(404);
             throw new Error('User not found!');
@@ -131,6 +131,7 @@ async function patchUser(req, res) {
 module.exports = {
     getUsers,
     getUser,
+    getUserLogin,
     postUser,
     patchUser,
     deleteUser,
