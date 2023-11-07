@@ -15,12 +15,15 @@ export default function Login() {
     const fetchUser = async () => {
         try {
             const userData = await fetch(
-                `http://localhost:4000/api/v1/users/${username}`
+                `http://localhost:4000/api/v1/users/${username}/${password}`
             );
             const user = await userData.json();
-            if (user) {
+            console.log(typeof user)
+            if (user !== "User not found!") {
                 setCurrUser(user);
                 navigate('/mycats');
+            } else {
+              alert("Wrong login credentials, please try again!")
             }
         } catch (err) {
             console.log(err);

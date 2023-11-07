@@ -18,11 +18,30 @@ async function getUsers(req, res) {
 }
 
 // @desc    Get user
-// @route   GET /api/v1/users/:id
+// @route   GET /api/v1/users/:userId
 async function getUser(req, res) {
-    const id = req.params.id;
+    const id = req.params.userId;
     try {
         const user = await UserModel.findOne({ _id: id });
+        if (!user) {
+            res.status(404);
+            throw new Error('User not found!');
+        } else {
+            res.status(200).json(user);
+        }
+    } catch (err) {
+        res.json(err.message);
+    }
+}
+
+// @desc    Get user
+// @route   GET /api/v1/users/:username/:password
+async function getUser(req, res) {
+    const username = req.params.username;
+    const password = req.params.password;
+    try {
+        const user = await UserModel.findOne({ username: username, password: password });
+        console.log(!user);
         if (!user) {
             res.status(404);
             throw new Error('User not found!');
