@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
+
 import "./HealthRecord.css"
 
-export default function AutocompleteInput() {
+export default function AutocompleteInput({onUpdate}) {
   const [userInput, setUserInput] = useState('');
   const [suggestions, setSuggestions] = useState([]);
   const [filteredSuggestions, setFilteredSuggestions] = useState([]);
@@ -57,6 +58,7 @@ export default function AutocompleteInput() {
 
     setUserInput(inputValue);
     setFilteredSuggestions(filteredSuggestions);
+    onUpdate(inputValue);
   };
 
   const handleSuggestionClick = (suggestion) => {
@@ -64,7 +66,10 @@ export default function AutocompleteInput() {
     setFilteredSuggestions([]);
   };
 
+
+
   return (
+    <>
     <div>
       <div className="suggestion-sidebar">
         <ul>
@@ -81,8 +86,10 @@ export default function AutocompleteInput() {
           type="text"
           value={userInput}
           onChange={handleInputChange}
+          autoComplete='off'
         />
       </div>
     </div>
+    </>
   );
 }
