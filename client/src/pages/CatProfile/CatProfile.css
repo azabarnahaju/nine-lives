@@ -1,7 +1,7 @@
 .catprofile-container {
     background-color: #BA9E87;
-    margin: 1rem;
-    padding: 2.5rem;
+    margin: 5rem;
+    padding: 3rem;
     border-radius: 1.5rem;
 }
 
@@ -10,22 +10,69 @@
     margin-bottom: 0.5rem;
     margin-left: 0.5rem;
     padding: 0.3rem;
-    width: 4rem;
+    width: 6rem;
     border-radius: 1rem;
     border: none;
     background-color: #191919;
     color: #E3D8D2;
     box-shadow: 2px 2px #E3D8D2;
+    font-size: 1rem;
 }
 
 .catprofile-edit-btn:hover, .catprofile-save-btn:hover {
     background-color: #3A2F25;
 }
 
+.catprofile-gen-info-text-container {
+    background-color: #443527;
+    border-radius: 1rem;
+    padding: 1rem;
+    font-size: 1.5rem;
+    color:#E3D8D2;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 70rem;
+}
+
+.editable-gen-info-container, .static-gen-info-container {
+    padding: 1rem;
+}
+
+.editable-gen-info-container td, .static-gen-info-container td {
+    padding: 0.5rem;
+    padding-left: 2rem;
+}
+
+.editable-gen-info-container tr, .static-gen-info-container tr {
+    padding: 0.5rem;
+}
+
+.catprofile-gen-info-text-container input {
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 1rem;
+    padding: 0.3rem;
+    padding-left: 1rem;
+    background-color: #E3D8D2;
+    color:#3A2F25;
+}
+
+.catprofile-gen-info-text-container table {
+    display: inline-block;
+    
+
+}
+
+.cat-profile-pic {
+    height: 20rem;
+    border-radius: 2rem;
+    border:2px solid #3A2F25;
+}
+
 .catprofile-gen-info-container {
     display: flex;
-    columns: 2;
-    align-items: center;
-    justify-content:space-around;
+    justify-content: space-around;
+    padding-right: 2rem;
 }
 

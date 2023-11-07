@@ -19,8 +19,9 @@
 
 /* Position and sizing of clickable cross button */
 .bm-cross-button {
-    height: 24px;
-    width: 24px;
+    transform: scale(1.8);
+    margin-right: -5rem;
+    margin-top: 3rem;
 }
 
 /* Color/shape of close button cross */
@@ -76,4 +77,8 @@ Note: Beware of modifying this element as it can break the animations - you shou
 /* Styling of overlay */
 .bm-overlay {
     background: rgba(0, 0, 0, 0.3);
+}
+
+.bm-menu a:hover {
+    color: #a90000;
 }
