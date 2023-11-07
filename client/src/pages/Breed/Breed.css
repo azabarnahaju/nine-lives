@@ -1,0 +1,82 @@
+.breed-profile-container {
+    background-color: #BA9E87;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 3rem;
+    padding: 1.2rem;
+    border-radius: 1.5rem;
+    filter: drop-shadow(1rem 1rem 10px rgba(82, 68, 58, 0.664));
+    width: 80vw;
+    height: 50vh;
+
+}
+
+
+
+.breed-profile-container img {
+    width: 50%;
+    display: block;
+    object-fit: cover;
+    margin-bottom: 1rem;
+    float: left;
+    border-radius: 1.5rem;
+    padding-right: 1rem;
+}
+
+.home-text-container span {
+    font-family: 'Satisfy', cursive;
+    font-size: x-large;
+}
+
+.breed-profile-ratings h5 {
+    font-size: xx-large;
+
+    padding-bottom: 1rem;
+    text-align: center;
+}
+
+.breed-profile-ratings ul {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    column-gap: 2rem;
+    row-gap: 0.5rem;
+    padding-bottom: 0;
+}
+
+.breed-profile-ratings ul li {
+    font-weight: 600;
+    margin-right: 10px;
+}
+
+
+
+
+.breed-profile-description {
+    border-radius: 5px;
+    padding: 20px;
+
+}
+
+.breed-profile-description h5 {
+    margin-top: 0;
+    font-size: xx-large;
+    padding-bottom: 1rem;
+    text-align: center;
+}
+
+.breed-profile-description span {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+.breed-profile-description a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.breed-profile-description a:hover {
+    text-decoration: underline;
+}
