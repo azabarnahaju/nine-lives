@@ -47,13 +47,17 @@ export default function Breed() {
         name,
         origin,
         rare,
-        shedding_level,
-        social_needs,
-        stranger_friendly,
         temperament,
-        vocalisation,
         wikipedia_url,
     } = catBreedDetails.breeds[0];
+    console.log(adaptability);
+    const makeStars = (number) => {
+        let stars = '';
+        for (let i = 0; i < Number(number); i++) {
+            stars += '⭐';
+        }
+        return stars;
+    };
     return (
         <>
             <Navbar />
@@ -69,24 +73,154 @@ export default function Breed() {
                     <div className='breed-profile-ratings'>
                         <h5>Ratings</h5>
                         <ul>
-                            <li>Adaptability: {adaptability}/5</li>
-                            <li>Affection level: {affection_level}/5</li>
-                            <li>Child friendly: {child_friendly}/5</li>
-                            <li>Dog friendly: {dog_friendly}/5</li>
-                            <li>Energy level: {energy_level}/5</li>
-                            <li>Experimental: {experimental}/5</li>
-                            <li>Grooming: {grooming}/5</li>
-                            <li>Hairless: {hairless}/5</li>
-                            <li>Health issues: {health_issues}/5</li>
-                            <li>Hypoallergenic: {hypoallergenic}/5</li>
-                            <li>Indoor: {indoor}/5</li>
-                            <li>Intelligence: {intelligence}/5</li>
-                            <li>Natural: {natural}/5</li>
-                            <li>Rare: {rare}/5</li>
-                            <li>Shedding level: {shedding_level}/5</li>
-                            <li>Social needs: {social_needs}/5</li>
-                            <li>Stranger friendly: {stranger_friendly}/5</li>
-                            <li>Vocalisation: {vocalisation}/5</li>
+                            {adaptability ? (
+                                <li>
+                                    Adaptability:{' '}
+                                    <span className='star-icons'>
+                                        {makeStars(adaptability)}
+                                    </span>
+                                </li>
+                            ) : (
+                                ''
+                            )}
+                            {affection_level ? (
+                                <li>
+                                    Affection level:{' '}
+                                    <span className='star-icons'>
+                                        {makeStars(affection_level)}
+                                    </span>
+                                </li>
+                            ) : (
+                                ''
+                            )}
+                            {child_friendly ? (
+                                <li>
+                                    Child friendly:{' '}
+                                    <span className='star-icons'>
+                                        {makeStars(child_friendly)}
+                                    </span>
+                                </li>
+                            ) : (
+                                ''
+                            )}
+                            {dog_friendly ? (
+                                <li>
+                                    Dog friendly:{' '}
+                                    <span className='star-icons'>
+                                        {makeStars(dog_friendly)}
+                                    </span>
+                                </li>
+                            ) : (
+                                ''
+                            )}
+                            {energy_level ? (
+                                <li>
+                                    Energy level:{' '}
+                                    <span className='star-icons'>
+                                        {makeStars(energy_level)}
+                                    </span>
+                                </li>
+                            ) : (
+                                ''
+                            )}
+                            {experimental ? (
+                                <li>
+                                    Experimental:{' '}
+                                    <span className='star-icons'>
+                                        {makeStars(experimental)}
+                                    </span>
+                                </li>
+                            ) : (
+                                ''
+                            )}
+                            {grooming ? (
+                                <li>
+                                    Grooming:{' '}
+                                    <span className='star-icons'>
+                                        {makeStars(grooming)}
+                                    </span>
+                                </li>
+                            ) : (
+                                ''
+                            )}
+                            {hairless ? (
+                                <li>
+                                    Hairless:{' '}
+                                    <span className='star-icons'>
+                                        {makeStars(hairless)}
+                                    </span>
+                                </li>
+                            ) : (
+                                ''
+                            )}
+                            {health_issues ? (
+                                <li>
+                                    Health issues:{' '}
+                                    <span className='star-icons'>
+                                        {makeStars(health_issues)}
+                                    </span>
+                                </li>
+                            ) : (
+                                ''
+                            )}
+                            {hypoallergenic ? (
+                                <li>
+                                    Hypoallergenic:{' '}
+                                    <span className='star-icons'>
+                                        {makeStars(hypoallergenic)}
+                                    </span>
+                                </li>
+                            ) : (
+                                ''
+                            )}
+                            {indoor ? (
+                                <li>
+                                    {' '}
+                                    Indoor:{' '}
+                                    <span className='star-icons'>
+                                        {' '}
+                                        {makeStars(indoor)}{' '}
+                                    </span>{' '}
+                                </li>
+                            ) : (
+                                ''
+                            )}{' '}
+                            {intelligence ? (
+                                <li>
+                                    {' '}
+                                    Intelligence:{' '}
+                                    <span className='star-icons'>
+                                        {' '}
+                                        {makeStars(intelligence)}{' '}
+                                    </span>{' '}
+                                </li>
+                            ) : (
+                                ''
+                            )}{' '}
+                            {natural ? (
+                                <li>
+                                    {' '}
+                                    Natural:{' '}
+                                    <span className='star-icons'>
+                                        {' '}
+                                        {makeStars(natural)}{' '}
+                                    </span>{' '}
+                                </li>
+                            ) : (
+                                ''
+                            )}{' '}
+                            {rare ? (
+                                <li>
+                                    {' '}
+                                    Rare:{' '}
+                                    <span className='star-icons'>
+                                        {' '}
+                                        {makeStars(rare)}{' '}
+                                    </span>{' '}
+                                </li>
+                            ) : (
+                                ''
+                            )}
                         </ul>
                     </div>
                 </div>
