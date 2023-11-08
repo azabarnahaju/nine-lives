@@ -80,3 +80,9 @@
 .breed-profile-description a:hover {
     text-decoration: underline;
 }
+
+.star-icons {
+    font-size: 16px;
+    display: block;
+    
+}
