@@ -21,7 +21,6 @@ async function getUsers(req, res) {
 // @route   GET /api/v1/users/:userId
 async function getUser(req, res) {
     const id = req.params.userId;
-    console.log(id);
     try {
         const user = await UserModel.findOne({ _id: id });
         if (!user) {
@@ -71,9 +70,9 @@ async function postUser(req, res) {
 }
 
 // @desc    Delete user
-// @route   DELETE /api/v1/users/:id
+// @route   DELETE /api/v1/users/:userId
 async function deleteUser(req, res) {
-    const id = req.params.id;
+    const id = req.params.userId;
     try {
         if (!isValidObjectId(id)) {
             res.status(400);
@@ -94,8 +93,6 @@ async function deleteUser(req, res) {
 // @route   PATCH /api/v1/users/:id
 async function patchUser(req, res) {
     const id = req.params.userId;
-    console.log(id);
-    console.log(req.body);
     const { username, email, password, cats } = req.body;
     try {
         if (!isValidObjectId(id)) {

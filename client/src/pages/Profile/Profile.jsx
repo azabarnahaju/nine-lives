@@ -1,5 +1,10 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
+import Navbar from "../../components/Navbar/Navbar";
+import Logout from "../../components/LogoutBtn/Logout";
+import ProfileLogo from "../../components/ProfileLogo/ProfileLogo";
+import PageTitle from "../../components/PageTitle/PageTitle";
+import "./Profile.css";
 
 const patchUserProf = async (userID, body) => {
   try {
@@ -18,25 +23,25 @@ const patchUserProf = async (userID, body) => {
     } else {
       console.log("Updating user profile failed.");
     }
-
   } catch (err) {
     console.log(err);
   }
 };
 
-const deleteUserProf = async (userID, body) => {
+const deleteUserProf = async (userID, navigate) => {
   try {
+    console.log(userID)
     const response = await fetch(
       `http://localhost:4000/api/v1/users/${userID}`,
-      {method: "DELETE"}
+      { method: "DELETE" }
     );
 
     if (response.ok) {
       alert("Your profile was successfully deleted");
+      setTimeout(() => navigate("/home"), 4000);
     } else {
-      console.log("Deleting user profile was failed.");
+      alert("Deleting user profile has failed.");
     }
-
   } catch (err) {
     console.log(err);
   }
@@ -69,15 +74,14 @@ export default function Profile() {
       delete body["password-confirm"];
       console.log(body);
       patchUserProf(userID, body);
-      setIsEditing(false)
+      setIsEditing(false);
     } else {
       alert("Wrong password confirmation. Try again!");
     }
   };
 
   const handleProfDel = () => {
-    deleteUserProf(userID);
-    setTimeout(() => navigate("/home"), 4000) 
+    deleteUserProf(userID, navigate);
   };
 
   useEffect(() => {
@@ -87,7 +91,6 @@ export default function Profile() {
           `http://localhost:4000/api/v1/users/${userID}`
         );
         const data = await response.json();
-        
         setUserData(data);
       } catch (err) {
         console.log(err);
@@ -100,10 +103,13 @@ export default function Profile() {
 
   return userData ? (
     <div>
+      <Navbar />
+      <ProfileLogo />
+      <PageTitle title={"my profile"} />
+      <Logout />
       <div className="user-profile-container">
-        <h1>HELLO {userData.username},</h1>
-        <div className="user-prof-username">
-          <p>Your username</p>
+        <div className="user-prof user-prof-username">
+          <p className="field-title">username</p>
           {isEditing ? (
             <input
               type="text"
@@ -115,8 +121,8 @@ export default function Profile() {
             <p>{userData.username}</p>
           )}
         </div>
-        <div className="user-prof-password">
-          <p>Your password</p>
+        <div className="user-prof user-prof-password">
+          <p className="field-title">password</p>
           {isEditing ? (
             <>
               <input
@@ -126,7 +132,7 @@ export default function Profile() {
                 defaultValue={userData.password}
                 onChange={handleProfInput}
               />
-              <label>Confirm your password</label>
+              <p className="field-title">Confirm your password</p>
               <input
                 type="password"
                 name="password-confirm"
@@ -139,8 +145,8 @@ export default function Profile() {
             <p>{userData.password}</p>
           )}
         </div>
-        <div className="user-prof-email">
-          <p>Your email</p>
+        <div className="user-prof user-prof-email">
+          <p className="field-title">email</p>
           {isEditing ? (
             <input
               type="email"
@@ -152,30 +158,30 @@ export default function Profile() {
             <p>{userData.email}</p>
           )}
         </div>
-      </div>
-      {isEditing ? (
-        <>
-          <button className="user-prof-save-btn" onClick={handleProfSubmit}>
-            Save
-          </button>
+        {isEditing ? (
+          <div className="edit-buttons-container">
+            <button className="user-prof-save-btn" onClick={handleProfSubmit}>
+              Save
+            </button>
+            <button
+              className="user-prof-cancel-btn"
+              onClick={() => setIsEditing(false)}
+            >
+              CANCEL
+            </button>
+          </div>
+        ) : (
           <button
-            className="user-prof-cancel-btn"
-            onClick={() => setIsEditing(false)}
+            className="user-prof-edit-btn"
+            onClick={() => setIsEditing(true)}
           >
-            CANCEL
+            EDIT PROFILE
           </button>
-        </>
-      ) : (
-        <button
-          className="user-prof-edit-btn"
-          onClick={() => setIsEditing(true)}
-        >
-          EDIT PROFILE
+        )}
+        <button className="user-prof-delete-btn" onClick={handleProfDel}>
+          DELETE PROFILE
         </button>
-      )}
-      <button className="user-prof-delete-btn" onClick={handleProfDel}>
-        DELETE PROFILE
-      </button>
+      </div>
     </div>
   ) : (
     <h2>Loading</h2>

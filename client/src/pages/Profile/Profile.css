@@ -1,0 +1,85 @@
+.user-profile-container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  font-family: "Comfortaa", sans-serif;
+  font-size: 1.3rem;
+  margin-top: 2rem;
+}
+
+.user-prof {
+  margin: 1rem;
+  border: 1.5px solid #3a2f25;
+  border-radius: 1rem;
+  padding: 1rem;
+  background-color: #7f6451;
+  width: 20rem;
+}
+
+.user-prof * {
+  text-align: center;
+}
+
+.user-profile-container input {
+  font-size: 1.2rem;
+  border: none;
+  border-radius: 1rem;
+  padding: 0.3rem;
+  padding-left: 1rem;
+  background-color: #e3d8d2;
+  color: #3a2f25;
+  font-family: "Comfortaa", sans-serif;
+  font-weight: 700;
+  margin: 0.5rem;
+}
+
+.user-profile-container p {
+  color: #3a2f25d0;
+}
+
+.user-profile-container .field-title {
+  text-transform: uppercase;
+  color: #1f1a16;
+  letter-spacing: 2px;
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+  font-weight: 700;
+}
+
+.user-prof-edit-btn,
+.user-prof-delete-btn,
+.user-prof-save-btn,
+.user-prof-cancel-btn {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  margin-left: 1rem;
+  padding: 1rem;
+  border-radius: 1rem;
+  border: none;
+  background-color: #191919;
+  color: #3a2f25;
+  font-size: 1rem;
+  cursor: pointer;
+  outline: none;
+  border: 0;
+  vertical-align: middle;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-family: "Gruppo", sans-serif;
+  border: 2px solid rgb(46, 36, 32);
+  border-radius: 1em;
+  background: transparent;
+  transform-style: preserve-3d;
+  transition: all 175ms cubic-bezier(0, 0, 1, 1);
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.user-prof-edit-btn:hover,
+.user-prof-delete-btn:hover,
+.user-prof-save-btn:hover,
+.user-prof-cancel-btn:hover {
+    background-color: #3A2F25;
+    color: #eedfd1
+}
