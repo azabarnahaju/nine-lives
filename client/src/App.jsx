@@ -10,7 +10,7 @@ import CatProfile from './pages/CatProfile/CatProfile';
 import HealthRecord from './pages/HealthRecord/HealthRecord';
 import Breeds from './pages/Breeds/Breeds';
 import Breed from './pages/Breed/Breed';
-
+import VaccForm from './pages/VaccForm/VaccForm';
 import Profile from './pages/Profile/Profile';
 
 function App() {
@@ -28,6 +28,7 @@ function App() {
             <Route path="/profile/:userID" element={<Profile />}></Route>
             <Route path='/breeds' element={<Breeds />}></Route>
             <Route path='/breeds/:breedname' element={<Breed />}></Route>
+            <Route path='/newvaccination/:catID' element={<VaccForm />}></Route>
             <Route path='*' element={<Home />}></Route>
           </Routes>
         </AppContext>

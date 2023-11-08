@@ -151,7 +151,7 @@ async function patchCat(req, res) {
             { new: true }
         );
         if (health_rec) {
-            await UserModel.findOneAndUpdate(
+            await CatModel.findOneAndUpdate(
                 { _id: id },
                 {
                     $push: {
@@ -161,23 +161,23 @@ async function patchCat(req, res) {
             );
         }
         if (vet_visit) {
-            await UserModel.findOneAndUpdate(
-                { _id: id },
-                {
-                    $push: {
-                        vet_visit: vet_visit,
-                    },
-                }
+            await CatModel.findOneAndUpdate(
+              { _id: id },
+              {
+                $push: {
+                  vet_visit: vet_visit,
+                },
+              }
             );
         }
         if (vaccination) {
-            await UserModel.findOneAndUpdate(
-                { _id: id },
-                {
-                    $push: {
-                        vaccination: vaccination,
-                    },
-                }
+            await CatModel.findOneAndUpdate(
+              { _id: id },
+              {
+                $push: {
+                  vaccination: vaccination,
+                },
+              }
             );
         }
         if (image) {
