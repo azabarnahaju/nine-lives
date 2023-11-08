@@ -3,7 +3,7 @@ import { ToastContainer, toast } from 'react-toastify';
 
 import "./HealthRecord.css"
 
-export default function AutocompleteInput({onUpdate}) {
+export default function AutocompleteInput({onUpdate, className}) {
   const [userInput, setUserInput] = useState('');
   const [suggestions, setSuggestions] = useState([]);
   const [filteredSuggestions, setFilteredSuggestions] = useState([]);
@@ -82,7 +82,7 @@ export default function AutocompleteInput({onUpdate}) {
       </div>
       <div>
         <input
-          className='symptom-input'
+          className={className}
           type="text"
           value={userInput}
           onChange={handleInputChange}

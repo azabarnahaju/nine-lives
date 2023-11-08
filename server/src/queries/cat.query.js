@@ -162,22 +162,22 @@ async function patchCat(req, res) {
         }
         if (vet_visit) {
             await CatModel.findOneAndUpdate(
-              { _id: id },
-              {
-                $push: {
-                  vet_visit: vet_visit,
-                },
-              }
+                { _id: id },
+                {
+                    $push: {
+                        vet_visit: vet_visit,
+                    },
+                }
             );
         }
         if (vaccination) {
             await CatModel.findOneAndUpdate(
-              { _id: id },
-              {
-                $push: {
-                  vaccination: vaccination,
-                },
-              }
+                { _id: id },
+                {
+                    $push: {
+                        vaccination: vaccination,
+                    },
+                }
             );
         }
         if (image) {
