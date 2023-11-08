@@ -264,7 +264,7 @@ export default function CatProfile() {
             <tbody>
               {catData.health_rec.length <= 3
                 ? catData.health_rec.map((rec) => (
-                    <tr>
+                    <tr >
                       <td>{rec.date}</td>
                       <td>{rec.symptoms.join(", ")}</td>
                       <td>{rec.result}</td>
@@ -357,7 +357,7 @@ export default function CatProfile() {
                     <tr>
                       <td>{rec.get_date}</td>
                       <td>{rec.exp_date}</td>
-                      <td>{rec.type}</td>
+                      <td>{rec.name}</td>
                       <td>{rec.comment}</td>
                       <td>
                         <button>EDIT</button>
@@ -370,7 +370,7 @@ export default function CatProfile() {
                       <tr>
                         <td>{rec.get_date}</td>
                         <td>{rec.exp_date}</td>
-                        <td>{rec.type}</td>
+                        <td>{rec.name}</td>
                         <td>{rec.comment}</td>
                         <td>
                           <button>EDIT</button>

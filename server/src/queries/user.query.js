@@ -70,9 +70,9 @@ async function postUser(req, res) {
 }
 
 // @desc    Delete user
-// @route   DELETE /api/v1/users/:id
+// @route   DELETE /api/v1/users/:userId
 async function deleteUser(req, res) {
-    const id = req.params.id;
+    const id = req.params.userId;
     try {
         if (!isValidObjectId(id)) {
             res.status(400);
