@@ -10,6 +10,7 @@ import CatProfile from './pages/CatProfile/CatProfile';
 import HealthRecord from './pages/HealthRecord/HealthRecord';
 import Breeds from './pages/Breeds/Breeds';
 import Breed from './pages/Breed/Breed';
+import VetVisit from './pages/VetVisit/VetVisit'
 
 import Profile from './pages/Profile/Profile';
 
@@ -25,6 +26,7 @@ function App() {
             <Route path="/mycats" element={<MyCats />}></Route>
             <Route path="/mycats/:catID" element={<CatProfile />}></Route>
             <Route path="/newhealthrecord" element={<HealthRecord />}></Route>
+            <Route path='/mycats/newvetvisit/:catID' element={<VetVisit />}></Route>
             <Route path="/profile/:userID" element={<Profile />}></Route>
             <Route path='/breeds' element={<Breeds />}></Route>
             <Route path='/breeds/:breedname' element={<Breed />}></Route>

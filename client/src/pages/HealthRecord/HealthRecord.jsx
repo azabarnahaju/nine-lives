@@ -74,6 +74,7 @@ export default function HealthRecord() {
                                 <AutocompleteInput
                                 key={index}
                                 onUpdate={(newValue) => updateFormValue(index, newValue)}
+                                className={"symptom-input"}
                                 />
                             ))}
                         </div>

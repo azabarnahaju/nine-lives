@@ -151,7 +151,7 @@ async function patchCat(req, res) {
             { new: true }
         );
         if (health_rec) {
-            await UserModel.findOneAndUpdate(
+            await CatModel.findOneAndUpdate(
                 { _id: id },
                 {
                     $push: {
@@ -161,7 +161,7 @@ async function patchCat(req, res) {
             );
         }
         if (vet_visit) {
-            await UserModel.findOneAndUpdate(
+            await CatModel.findOneAndUpdate(
                 { _id: id },
                 {
                     $push: {
@@ -171,7 +171,7 @@ async function patchCat(req, res) {
             );
         }
         if (vaccination) {
-            await UserModel.findOneAndUpdate(
+            await CatModel.findOneAndUpdate(
                 { _id: id },
                 {
                     $push: {

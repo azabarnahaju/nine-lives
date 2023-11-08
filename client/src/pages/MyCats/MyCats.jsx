@@ -74,7 +74,7 @@ export default function MyCats() {
               </span>
               <hr></hr>
               <Link to={`/mycats/${cat._id}`}>Show Cat Profile</Link>
-              <Link to="/catprofile">Log Vet Visit</Link>
+              <Link to={`/mycats/newvetvisit/${cat._id}`}>Log Vet Visit</Link>
               <Link to="/newhealthrecord">Log Health Record</Link>
             </div>
           ))}

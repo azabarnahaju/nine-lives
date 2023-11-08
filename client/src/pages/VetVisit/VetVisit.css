@@ -1,0 +1,73 @@
+.new-vet-visit-container{
+    display: block;
+    text-align: center;
+}
+.new-vet-visit-form{
+    width: 70%;
+    display: inline-block;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+}
+
+.new-vet-visit-save-button-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}  
+.new-vet-visit-submit-button {
+    position: relative;
+    display: flex;
+    cursor: pointer;
+    outline: none;
+    border: 0;
+    vertical-align: middle;
+    text-decoration: none;
+    font-size: 2rem;
+    color:#E3D8D2;
+    text-transform: uppercase;
+    font-family: inherit;
+    padding: 1em 2em;
+    border: 2px solid black;
+    border-radius: 1em;
+    background: #554231;
+    transform-style: preserve-3d;
+    transition: all 175ms cubic-bezier(0, 0, 1, 1);
+    margin: 0.5rem;
+  }
+
+.new-vet-visit-submit-button:hover{
+    background: #614e3e;
+    transform: translate(0, 0.375em);
+  }
+.new-vet-visit-input-text {
+    width: 15vw;
+    height: 10vh;
+    border-radius: 10%;
+    background-color: #554231;
+    color: #E3D8D2;
+    text-align: center;
+    font-size: 22px;
+}
+.new-vet-visit-date-input {
+    width: 15vw;
+    height: 10vh;
+    border-radius: 10%;
+    background-color: #554231;
+    color: #E3D8D2;
+    text-align: center;
+    font-size: 22px;
+    border: none; /* Remove the default input border */
+    outline: none; /* Remove the input outline on focus */
+    padding: 10px; /* Add some padding for better appearance */
+    box-sizing: border-box; /* Ensure padding is included in the width and height */
+}
+.new-vet-visit-inputs-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.new-vet-visit-inputs-container input{
+    margin: 20px;
+}
