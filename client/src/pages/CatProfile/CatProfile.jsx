@@ -43,6 +43,7 @@ export default function CatProfile() {
     let { catID } = useParams();
     const [catData, setCatData] = useState(false);
     const [isEditing, setIsEditing] = useState(false);
+    const [needReload, setNeedReload] = useState(false)
 
     useEffect(() => {
         async function fetchCatProfile(catID) {
@@ -60,7 +61,7 @@ export default function CatProfile() {
             }
         }
         fetchCatProfile(catID);
-    }, [isEditing]);
+    }, [needReload]);
 
     let genInfoFields;
     const handleInfoChange = (e) => {
@@ -199,7 +200,7 @@ export default function CatProfile() {
         );
         if (response.ok) {
           console.log('Successfully deleted');
-          setIsEditing(!isEditing)
+          setNeedReload(!needReload)
         } else {
             console.log(response.status);
         }
@@ -304,7 +305,7 @@ export default function CatProfile() {
                             {catData.health_rec.length <= 3
                                 ? catData.health_rec.map((rec) => (
                                       <tr>
-                                          <td>{rec.date}</td>
+                                          <td>{`${rec.date ? String(rec.date).slice(0, -14) : "-"}`}</td>
                                           <td>{rec.symptoms.join(', ')}</td>
                                           <td>{rec.result.join(', ')}</td>
                                           <td>
@@ -324,23 +325,21 @@ export default function CatProfile() {
                                 : catData.health_rec.splice(0, 3).map((rec) => (
                                       <>
                                           <tr>
-                                              <td>{rec.date}</td>
+                                              <td>{`${rec.date ? String(rec.date).slice(0, -14) : "-"}`}</td>
                                               <td>{rec.symptoms.join(', ')}</td>
                                               <td>{rec.result}</td>
                                               <td>{rec.comment}</td>
                                               <td>
-                                                  <button>EDIT</button>
                                                   <button>DELETE</button>
                                               </td>
                                           </tr>
-                                          <button>LOAD MORE</button>
                                       </>
                                   ))}
                         </tbody>
                     </table>
                 </div>
                 <h2>
-                    Vet records<button className='new-hr-btn'>ADD NEW</button>
+                    Vet records<Link to={`/mycats/newvetvisit/${catID}`} ><button className='new-hr-btn'>ADD NEW</button></Link>
                 </h2>
                 <div className='catprofile-vr-container'>
                     <table className='vr-table'>
@@ -356,12 +355,11 @@ export default function CatProfile() {
                             {catData.vet_visit.length <= 3
                                 ? catData.vet_visit.map((rec) => (
                                       <tr>
-                                          <td>{rec.date}</td>
+                                          <td>{`${rec.date ? String(rec.date).slice(0, -14) : "-"}`}</td>
                                           <td>{rec.symptoms.join(', ')}</td>
                                           <td>{rec.result}</td>
                                           <td>{rec.comment}</td>
                                           <td>
-                                              <button>EDIT</button>
                                               <button>DELETE</button>
                                           </td>
                                       </tr>
@@ -369,12 +367,11 @@ export default function CatProfile() {
                                 : catData.vet_visit.splice(0, 3).map((rec) => (
                                       <>
                                           <tr>
-                                              <td>{rec.date}</td>
+                                              <td>{`${rec.date ? String(rec.date).slice(0, -14) : "-"}`}</td>
                                               <td>{rec.symptoms.join(', ')}</td>
                                               <td>{rec.result}</td>
                                               <td>{rec.comment}</td>
                                               <td>
-                                                  <button>EDIT</button>
                                                   <button>DELETE</button>
                                               </td>
                                           </tr>
@@ -386,7 +383,7 @@ export default function CatProfile() {
                 </div>
                 <h2>
                     Vaccination records
-                    <button className='new-vr-btn'>ADD NEW</button>
+                    <Link to={`/newvaccination/${catID}`} ><button className='new-vr-btn'>ADD NEW</button></Link>
                 </h2>
                 <div className='catprofile-vr-container'>
                     <table className='vr-table'>
@@ -402,12 +399,11 @@ export default function CatProfile() {
                             {catData.vaccination.length <= 3
                                 ? catData.vaccination.map((rec) => (
                                       <tr>
-                                          <td>{rec.get_date}</td>
-                                          <td>{rec.exp_date}</td>
+                                          <td>{`${rec.get_date ? String(rec.get_date).slice(0, -14) : "-"}`}</td>
+                                          <td>{`${rec.exp_date ? String(rec.exp_date).slice(0, -14) : "-"}`}</td>
                                           <td>{rec.name}</td>
                                           <td>{rec.comment}</td>
                                           <td>
-                                              <button>EDIT</button>
                                               <button>DELETE</button>
                                           </td>
                                       </tr>
@@ -417,8 +413,8 @@ export default function CatProfile() {
                                       .map((rec) => (
                                           <>
                                               <tr>
-                                                  <td>{rec.get_date}</td>
-                                                  <td>{rec.exp_date}</td>
+                                                  <td>{`${rec.get_date ? String(rec.get_date).slice(0, -14) : "-"}`}</td>
+                                                  <td>{`${rec.exp_date ? String(rec.exp_date).slice(0, -14) : "-"}`}</td>
                                                   <td>{rec.name}</td>
                                                   <td>{rec.comment}</td>
                                                   <td>

@@ -6,7 +6,7 @@ import Navbar from "../../components/Navbar/Navbar.jsx";
 import PageTitle from "../../components/PageTitle/PageTitle.jsx";
 import { ToastContainer, toast } from 'react-toastify';
 import AutocompleteInput from '../HealthRecord/Suggestions.jsx';
-
+import BackBtn from '../../components/BackBtn/BackBtn.jsx';
 
 
 
@@ -102,6 +102,7 @@ export default function HealthRecord() {
       return (<>
         <Navbar />
         <PageTitle title={"New Vet visit"} />
+        <BackBtn path={`/mycats/${catID}`} />
         <div className='new-vet-visit-container'>
         <form className='new-vet-visit-form' onSubmit={handleSubmit}>
           <div className='new-vet-visit-inputs-container' >
