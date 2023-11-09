@@ -7,6 +7,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import AutocompleteInput from "./Suggestions.jsx";
 import DiseaseResults from "./DiseaseResults.jsx";
 import { useParams } from "react-router-dom";
+import BackBtn from '../../components/BackBtn/BackBtn.jsx';
 
 export default function HealthRecord() {
     const [formValues, setFormValues] = useState([]);
@@ -109,9 +110,12 @@ export default function HealthRecord() {
     return !isLoading ? (
       <>
         <Navbar />
+
         <div className="health-record-pagetitle">
           <PageTitle title={"New health record"} />
+            <BackBtn path={`/mycats/${catID}`} />
         </div>
+
         <div className="health-form-container">
           <form onSubmit={handleSubmit} className="health-form">
             <div className="autocomplete-parent-div">
