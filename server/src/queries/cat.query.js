@@ -1,5 +1,7 @@
 const CatModel = require('../DB/models/cat.model');
 const { isValidObjectId } = require('mongoose');
+const mongoose = require('mongoose');
+const { ObjectId } = mongoose.Types.ObjectId;
 
 // @desc    Get cats
 // @route   GET /api/v1/cats
@@ -55,20 +57,18 @@ async function postCat(req, res) {
         image,
     } = req.body;
     try {
-        const cat = await CatModel.create(
-            {
-                name,
-                birth,
-                breed,
-                color,
-                fav_toy,
-                curr_vacc,
-                last_visit,
-                health_rec,
-                vet_visit,
-                vaccination,
-            }, 
-        );
+        const cat = await CatModel.create({
+            name,
+            birth,
+            breed,
+            color,
+            fav_toy,
+            curr_vacc,
+            last_visit,
+            health_rec,
+            vet_visit,
+            vaccination,
+        });
         if (image) {
             await CatModel.findOneAndUpdate(
                 { _id: cat._id },
@@ -79,7 +79,7 @@ async function postCat(req, res) {
                 }
             );
         }
-        
+
         if (cat) {
             return res.status(201).json(cat);
         } else {
@@ -190,11 +190,36 @@ async function patchCat(req, res) {
                 }
             );
         }
+      
         if (cat) {
             return res.status(200).json(cat);
         } else {
             res.status(400);
             throw new Error('Invalid cat data');
+        }
+    } catch (err) {
+        res.json(err.message);
+    }
+}
+
+async function deleteRecord(req, res) {
+    const catID = req.params.catID;
+    const recordID = req.params.recordID;
+    try {
+        const cat = await CatModel.findOneAndUpdate(
+            { _id: catID },
+            {
+                $pull: {
+                    health_rec: { _id: recordID },
+                },
+            },
+            { new: true }
+        );
+        if (cat) {
+            return res.status(200).json(cat);
+        } else {
+            res.status(500);
+            throw new Error('Internal server error');
         }
     } catch (err) {
         res.json(err.message);
@@ -207,4 +232,5 @@ module.exports = {
     postCat,
     patchCat,
     deleteCat,
+    deleteRecord,
 };

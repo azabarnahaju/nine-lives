@@ -18,8 +18,7 @@ const CatSchema = mongoose.Schema({
         {
             date: Date,
             symptoms: Array,
-            result: String,
-            comment: String,
+            result: Array,
         },
     ],
     vet_visit: [
