@@ -22,7 +22,7 @@ async function getUsers(req, res) {
 async function getUser(req, res) {
     const id = req.params.userId;
     try {
-        const user = await UserModel.findOne({ _id: id });
+        const user = await UserModel.findOne({ _id: id }).populate("cats");
         if (!user) {
             res.status(404);
             throw new Error('User not found!');
