@@ -8,9 +8,13 @@
     filter: drop-shadow(1rem 1rem 10px rgba(82, 68, 58, 0.664));
     width: 80vw;
     height: 50vh;
-
+    font-family: 'Comfortaa', sans-serif;
 }
 
+.breed-title {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+}
 
 
 .breed-profile-container img {
@@ -19,8 +23,10 @@
     object-fit: cover;
     margin-bottom: 1rem;
     float: left;
-    border-radius: 1.5rem;
+    border-radius: 2rem;
     padding-right: 1rem;
+    margin-top: 1rem;
+    margin-right: 1rem;
 }
 
 .home-text-container span {

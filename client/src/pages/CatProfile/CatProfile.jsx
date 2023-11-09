@@ -313,38 +313,23 @@ export default function CatProfile() {
                 </tr>
               </thead>
               <tbody>
-                {catData.health_rec.length <= 3
-                  ? catData.health_rec.map((rec) => (
-                      <tr>
-                        <td>{rec.date}</td>
-                        <td>{rec.symptoms.join(", ")}</td>
-                        <td>{rec.result.join(", ")}</td>
-                        <td>
-                          <button
-                            onClick={() =>
-                              handleDeleteHealthRecord("health_rec", rec._id)
-                            }
-                          >
-                            DELETE
-                          </button>
-                        </td>
-                      </tr>
-                    ))
-                  : catData.health_rec.splice(0, 3).map((rec) => (
-                      <>
-                        <tr>
-                          <td>{rec.date}</td>
-                          <td>{rec.symptoms.join(", ")}</td>
-                          <td>{rec.result}</td>
-                          <td>{rec.comment}</td>
-                          <td>
-                            <button>EDIT</button>
-                            <button>DELETE</button>
-                          </td>
-                        </tr>
-                        <button>LOAD MORE</button>
-                      </>
-                    ))}
+                {catData.health_rec.map((rec) => (
+                  <tr>
+                    <td>{rec.date}</td>
+                    <td>{rec.symptoms.join(", ")}</td>
+                    <td>{rec.result.join(", ")}</td>
+                    <td>
+                      <button
+                        className="record-button"
+                        onClick={() =>
+                          handleDeleteHealthRecord("health_rec", rec._id)
+                        }
+                      >
+                        DELETE
+                      </button>
+                    </td>
+                  </tr>
+                ))}
               </tbody>
             </table>
           </div>
@@ -352,7 +337,7 @@ export default function CatProfile() {
             Vet records<button className="new-hr-btn">ADD NEW</button>
           </h2>
           <div className="catprofile-vr-container">
-            <table className="vr-table">
+            <table className="hr-table">
               <thead>
                 <tr>
                   <th>Date</th>
@@ -362,45 +347,29 @@ export default function CatProfile() {
                 </tr>
               </thead>
               <tbody>
-                {catData.vet_visit.length <= 3
-                  ? catData.vet_visit.map((rec) => (
-                      <tr>
-                        <td>{rec.date}</td>
-                        <td>{rec.symptoms.join(", ")}</td>
-                        <td>{rec.result}</td>
-                        <td>{rec.comment}</td>
-                        <td>
-                          <button>EDIT</button>
-                          <button>DELETE</button>
-                        </td>
-                      </tr>
-                    ))
-                  : catData.vet_visit.splice(0, 3).map((rec) => (
-                      <>
-                        <tr>
-                          <td>{rec.date}</td>
-                          <td>{rec.symptoms.join(", ")}</td>
-                          <td>{rec.result}</td>
-                          <td>{rec.comment}</td>
-                          <td>
-                            <button>EDIT</button>
-                            <button>DELETE</button>
-                          </td>
-                        </tr>
-                        <button>LOAD MORE</button>
-                      </>
-                    ))}
+                {catData.vet_visit.map((rec) => (
+                  <tr>
+                    <td>{rec.date}</td>
+                    <td>{rec.symptoms.join(", ")}</td>
+                    <td>{rec.result}</td>
+                    <td>{rec.comment}</td>
+                    <td>
+                      <button className="record-button">EDIT</button>
+                      <button className="record-button">DELETE</button>
+                    </td>
+                  </tr>
+                ))}
               </tbody>
             </table>
           </div>
           <h2>
             Vaccination records
             <Link to={`/newvaccination/${catID}`}>
-              <button className="new-vr-btn">ADD NEW</button>
+              <button className="new-hr-btn">ADD NEW</button>
             </Link>
           </h2>
           <div className="catprofile-vr-container">
-            <table className="vr-table">
+            <table className="hr-table">
               <thead>
                 <tr>
                   <th>Date</th>
@@ -418,6 +387,7 @@ export default function CatProfile() {
                     <td>{rec.comment}</td>
                     <td>
                       <button
+                        className="record-button"
                         onClick={() =>
                           handleEditHealthRecord("vaccination", rec)
                         }
@@ -425,6 +395,7 @@ export default function CatProfile() {
                         EDIT
                       </button>
                       <button
+                        className="record-button"
                         onClick={() =>
                           handleDeleteHealthRecord("vaccination", rec._id)
                         }

@@ -59,183 +59,174 @@ export default function Breed() {
         return stars;
     };
     return (
-        <>
-            <Navbar />
-            <BackBtn path={'/breeds'} />
-            <div className='home-text-container'>
-                <ProfileLogo />
-                <PageTitle title={name} />
-                <span>{alt_names ? alt_names : ''}</span>
-            </div>
-            <div className='breed-profile-container'>
-                <div className='img-rating-container'>
-                    <img src={catBreedDetails.url} width='400' height='400' />
-                    <div className='breed-profile-ratings'>
-                        <h5>Ratings</h5>
-                        <ul>
-                            {adaptability ? (
-                                <li>
-                                    Adaptability:{' '}
-                                    <span className='star-icons'>
-                                        {makeStars(adaptability)}
-                                    </span>
-                                </li>
-                            ) : (
-                                ''
-                            )}
-                            {affection_level ? (
-                                <li>
-                                    Affection level:{' '}
-                                    <span className='star-icons'>
-                                        {makeStars(affection_level)}
-                                    </span>
-                                </li>
-                            ) : (
-                                ''
-                            )}
-                            {child_friendly ? (
-                                <li>
-                                    Child friendly:{' '}
-                                    <span className='star-icons'>
-                                        {makeStars(child_friendly)}
-                                    </span>
-                                </li>
-                            ) : (
-                                ''
-                            )}
-                            {dog_friendly ? (
-                                <li>
-                                    Dog friendly:{' '}
-                                    <span className='star-icons'>
-                                        {makeStars(dog_friendly)}
-                                    </span>
-                                </li>
-                            ) : (
-                                ''
-                            )}
-                            {energy_level ? (
-                                <li>
-                                    Energy level:{' '}
-                                    <span className='star-icons'>
-                                        {makeStars(energy_level)}
-                                    </span>
-                                </li>
-                            ) : (
-                                ''
-                            )}
-                            {experimental ? (
-                                <li>
-                                    Experimental:{' '}
-                                    <span className='star-icons'>
-                                        {makeStars(experimental)}
-                                    </span>
-                                </li>
-                            ) : (
-                                ''
-                            )}
-                            {grooming ? (
-                                <li>
-                                    Grooming:{' '}
-                                    <span className='star-icons'>
-                                        {makeStars(grooming)}
-                                    </span>
-                                </li>
-                            ) : (
-                                ''
-                            )}
-                            {hairless ? (
-                                <li>
-                                    Hairless:{' '}
-                                    <span className='star-icons'>
-                                        {makeStars(hairless)}
-                                    </span>
-                                </li>
-                            ) : (
-                                ''
-                            )}
-                            {health_issues ? (
-                                <li>
-                                    Health issues:{' '}
-                                    <span className='star-icons'>
-                                        {makeStars(health_issues)}
-                                    </span>
-                                </li>
-                            ) : (
-                                ''
-                            )}
-                            {hypoallergenic ? (
-                                <li>
-                                    Hypoallergenic:{' '}
-                                    <span className='star-icons'>
-                                        {makeStars(hypoallergenic)}
-                                    </span>
-                                </li>
-                            ) : (
-                                ''
-                            )}
-                            {indoor ? (
-                                <li>
-                                    {' '}
-                                    Indoor:{' '}
-                                    <span className='star-icons'>
-                                        {' '}
-                                        {makeStars(indoor)}{' '}
-                                    </span>{' '}
-                                </li>
-                            ) : (
-                                ''
-                            )}{' '}
-                            {intelligence ? (
-                                <li>
-                                    {' '}
-                                    Intelligence:{' '}
-                                    <span className='star-icons'>
-                                        {' '}
-                                        {makeStars(intelligence)}{' '}
-                                    </span>{' '}
-                                </li>
-                            ) : (
-                                ''
-                            )}{' '}
-                            {natural ? (
-                                <li>
-                                    {' '}
-                                    Natural:{' '}
-                                    <span className='star-icons'>
-                                        {' '}
-                                        {makeStars(natural)}{' '}
-                                    </span>{' '}
-                                </li>
-                            ) : (
-                                ''
-                            )}{' '}
-                            {rare ? (
-                                <li>
-                                    {' '}
-                                    Rare:{' '}
-                                    <span className='star-icons'>
-                                        {' '}
-                                        {makeStars(rare)}{' '}
-                                    </span>{' '}
-                                </li>
-                            ) : (
-                                ''
-                            )}
-                        </ul>
-                    </div>
-                </div>
-                <div className='breed-profile-description'>
-                    <h5>Description</h5>
-                    <span>{description}</span>
-                    <span>Temperament: {temperament}</span>
-                    <span> Origin: {origin}</span>{' '}
-                    <span>Life span: {life_span}</span>
-                    <span>
-                        More information:{' '}
-                        <a href={wikipedia_url}>{wikipedia_url}</a>{' '}
+      <>
+        <Navbar />
+        <BackBtn path={"/breeds"} />
+        <div className="home-text-container">
+          <ProfileLogo />
+          <PageTitle title={name} />
+          <span>{alt_names ? alt_names : ""}</span>
+        </div>
+        <div className="breed-profile-container">
+          <div className="img-rating-container">
+            <img src={catBreedDetails.url} width="400" height="400" />
+            <div className="breed-profile-ratings">
+              <h5 className="breed-title">Ratings</h5>
+              <ul>
+                {adaptability ? (
+                  <li>
+                    Adaptability:{" "}
+                    <span className="star-icons">
+                      {makeStars(adaptability)}
                     </span>
-                </div>
+                  </li>
+                ) : (
+                  ""
+                )}
+                {affection_level ? (
+                  <li>
+                    Affection level:{" "}
+                    <span className="star-icons">
+                      {makeStars(affection_level)}
+                    </span>
+                  </li>
+                ) : (
+                  ""
+                )}
+                {child_friendly ? (
+                  <li>
+                    Child friendly:{" "}
+                    <span className="star-icons">
+                      {makeStars(child_friendly)}
+                    </span>
+                  </li>
+                ) : (
+                  ""
+                )}
+                {dog_friendly ? (
+                  <li>
+                    Dog friendly:{" "}
+                    <span className="star-icons">
+                      {makeStars(dog_friendly)}
+                    </span>
+                  </li>
+                ) : (
+                  ""
+                )}
+                {energy_level ? (
+                  <li>
+                    Energy level:{" "}
+                    <span className="star-icons">
+                      {makeStars(energy_level)}
+                    </span>
+                  </li>
+                ) : (
+                  ""
+                )}
+                {experimental ? (
+                  <li>
+                    Experimental:{" "}
+                    <span className="star-icons">
+                      {makeStars(experimental)}
+                    </span>
+                  </li>
+                ) : (
+                  ""
+                )}
+                {grooming ? (
+                  <li>
+                    Grooming:{" "}
+                    <span className="star-icons">{makeStars(grooming)}</span>
+                  </li>
+                ) : (
+                  ""
+                )}
+                {hairless ? (
+                  <li>
+                    Hairless:{" "}
+                    <span className="star-icons">{makeStars(hairless)}</span>
+                  </li>
+                ) : (
+                  ""
+                )}
+                {health_issues ? (
+                  <li>
+                    Health issues:{" "}
+                    <span className="star-icons">
+                      {makeStars(health_issues)}
+                    </span>
+                  </li>
+                ) : (
+                  ""
+                )}
+                {hypoallergenic ? (
+                  <li>
+                    Hypoallergenic:{" "}
+                    <span className="star-icons">
+                      {makeStars(hypoallergenic)}
+                    </span>
+                  </li>
+                ) : (
+                  ""
+                )}
+                {indoor ? (
+                  <li>
+                    {" "}
+                    Indoor:{" "}
+                    <span className="star-icons">
+                      {" "}
+                      {makeStars(indoor)}{" "}
+                    </span>{" "}
+                  </li>
+                ) : (
+                  ""
+                )}{" "}
+                {intelligence ? (
+                  <li>
+                    {" "}
+                    Intelligence:{" "}
+                    <span className="star-icons">
+                      {" "}
+                      {makeStars(intelligence)}{" "}
+                    </span>{" "}
+                  </li>
+                ) : (
+                  ""
+                )}{" "}
+                {natural ? (
+                  <li>
+                    {" "}
+                    Natural:{" "}
+                    <span className="star-icons">
+                      {" "}
+                      {makeStars(natural)}{" "}
+                    </span>{" "}
+                  </li>
+                ) : (
+                  ""
+                )}{" "}
+                {rare ? (
+                  <li>
+                    {" "}
+                    Rare:{" "}
+                    <span className="star-icons"> {makeStars(rare)} </span>{" "}
+                  </li>
+                ) : (
+                  ""
+                )}
+              </ul>
             </div>
-        </>
+          </div>
+          <div className="breed-profile-description">
+            <h5 className="breed-title">Description</h5>
+            <span>{description}</span>
+            <span>Temperament: {temperament}</span>
+            <span> Origin: {origin}</span> <span>Life span: {life_span}</span>
+            <span>
+              More information: <a href={wikipedia_url}>{wikipedia_url}</a>{" "}
+            </span>
+          </div>
+        </div>
+      </>
     );
 }

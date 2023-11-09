@@ -12,15 +12,18 @@ function DiseaseResults({
   useEffect(() => {
     const diseaseCard = (disease) => (
       <div className="disease-card-container" key={disease.id}>
-        <div className="disease-card-container-name">
-          <p>Name: {disease.name}</p>
+        <div>
+          <div className="disease-card-container-name">
+            <p className="disease-name">{disease.name}</p>
+            <p>{disease.id}</p>
+          </div>
         </div>
-        <p>Shortened identifier: {disease.id}</p>
-        <p>All symptoms:</p>
-
-        {disease.symptoms.map((symptom, index) => (
-          <li key={index}>{symptom}</li>
-        ))}
+        <div className='symptoms-container'>
+          <p>All symptoms:</p>
+          {disease.symptoms.map((symptom, index) => (
+            <li key={index}>{symptom}</li>
+          ))}
+        </div>
       </div>
     );
 
@@ -52,8 +55,8 @@ function DiseaseResults({
 
   return (
     <>
-      <h1>It could be:</h1>
-      <p>
+      <h1 className='hr-result-title'>It could be:</h1>
+      <p className='hr-result-comment'>
         (These are just possible diseases, and do not count as a visit to the
         vet)
       </p>
