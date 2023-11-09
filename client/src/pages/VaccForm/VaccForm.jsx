@@ -40,6 +40,7 @@ export default function VaccForm() {
 
     const response = await addVaccLog(catID, vaccination);
     console.log(response);
+    navigate(-1);
   }
 
   return (
@@ -85,6 +86,9 @@ export default function VaccForm() {
           >
             SAVE
           </button>
+            <button className="save-btn-vacc" type="button" onClick={() => navigate(-1)}>
+              Cancel
+            </button>
         </form>
       </div>
     </>

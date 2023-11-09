@@ -203,34 +203,60 @@ async function patchCat(req, res) {
 }
 
 async function deleteRecord(req, res) {
-    const catID = req.params.catID;
-    const recordID = req.params.recordID;
-    try {
-        const cat = await CatModel.findOneAndUpdate(
-            { _id: catID },
-            {
-                $pull: {
-                    health_rec: { _id: recordID },
-                },
-            },
-            { new: true }
-        );
-        if (cat) {
-            return res.status(200).json(cat);
-        } else {
-            res.status(500);
-            throw new Error('Internal server error');
-        }
-    } catch (err) {
-        res.json(err.message);
+  const catID = req.params.catID;
+  const recordID = req.params.recordID;
+  const recordType = req.params.recordName;
+  try {
+    const cat = await CatModel.findOneAndUpdate(
+      { _id: catID },
+      {
+        $pull: {
+          [recordType]: { _id: recordID },
+        },
+      },
+      { new: true }
+    );
+    if (cat) {
+      return res.status(200).json(cat);
+    } else {
+      res.status(500);
+      throw new Error("Internal server error");
+    }
+  } catch (err) {
+    res.json(err.message);
+  }
+}
+
+async function editRecord(req, res) {
+  const catID = req.params.catID;
+  const recordID = req.params.recordID;
+  const recordType = req.params.recordName;
+  const editedRecord = req.body;
+  console.log(catID, recordID, recordType, editedRecord)
+  try {
+    const cat = await CatModel.findOne({ _id: catID });
+    console.log(cat)
+    const recordIndex = cat[recordType].findIndex(obj => {obj._id === new ObjectId(recordID)})
+    console.log(recordIndex);
+    cat[recordType][recordIndex] = editedRecord; 
+    await cat.save();
+    console.log(cat[recordType]);
+    if (cat) {
+      return res.status(200).json(cat);
+    } else {
+      res.status(500);
+      throw new Error("Internal server error");
+
     }
 }
 
 module.exports = {
-    getCats,
-    getCat,
-    postCat,
-    patchCat,
-    deleteCat,
-    deleteRecord,
+  getCats,
+  getCat,
+  postCat,
+  patchCat,
+  deleteCat,
+  deleteRecord,
+  editRecord,
+
 };

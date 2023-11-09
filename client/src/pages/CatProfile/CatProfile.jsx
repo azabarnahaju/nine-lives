@@ -1,10 +1,12 @@
-import Navbar from '../../components/Navbar/Navbar';
-import './CatProfile.css';
-import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import ProfileLogo from '../../components/ProfileLogo/ProfileLogo';
-import PageTitle from '../../components/PageTitle/PageTitle';
-import { Link } from 'react-router-dom';
+
+import Navbar from "../../components/Navbar/Navbar";
+import "./CatProfile.css";
+import { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import ProfileLogo from "../../components/ProfileLogo/ProfileLogo";
+import PageTitle from "../../components/PageTitle/PageTitle";
+import { Link } from "react-router-dom";
+import HealthRecordEditor from "../HealthRecordEditor/HealthRecordEditor";
 
 const url = 'http://localhost:4000/api/v1/cats';
 const catBirthYear = (birth) => Math.floor(new Date(birth).getFullYear());
@@ -40,10 +42,17 @@ const patchCatProfile = async (body, catData) => {
 };
 
 export default function CatProfile() {
-    let { catID } = useParams();
-    const [catData, setCatData] = useState(false);
-    const [isEditing, setIsEditing] = useState(false);
+
+  let { catID } = useParams();
+  const [catData, setCatData] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
+  const navigate = useNavigate();
+  const [recordToEdit, setRecordToEdit] = useState(false);
+  const [recordName, setRecordName] = useState('');
+
+
     const [needReload, setNeedReload] = useState(false)
+
 
     useEffect(() => {
         async function fetchCatProfile(catID) {
@@ -69,142 +78,159 @@ export default function CatProfile() {
         e.target.setAttribute('value', e.target.value);
     };
 
-    if (catData) {
-        genInfoFields = isEditing ? (
-            <>
-                <tr>
-                    <td>
-                        <b>Name:</b>
-                    </td>
-                    <td>
-                        <input
-                            defaultValue={catData.name}
-                            key='name'
-                            id='name'
-                            onChange={handleInfoChange}
-                        />
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <b> Birth year:</b>
-                    </td>
-                    <td>
-                        <input
-                            defaultValue={catBirthYear(catData.birth)}
-                            key='birth'
-                            id='birth'
-                            onChange={handleInfoChange}
-                        />
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <b>Breed:</b>
-                    </td>
-                    <td>
-                        <input
-                            value={catData.breed}
-                            key='breed'
-                            id='breed'
-                            onChange={handleInfoChange}
-                        />
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <b>Colour:</b>
-                    </td>
-                    <td>
-                        <input
-                            value={catData.color}
-                            key='color'
-                            id='color'
-                            onChange={handleInfoChange}
-                        />
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <b>Favourite toy:</b>
-                    </td>
-                    <td>
-                        <input
-                            value={catData.fav_toy}
-                            key='fav_toy'
-                            id='fav_toy'
-                            onChange={handleInfoChange}
-                        />
-                    </td>
-                </tr>
-            </>
-        ) : (
-            <>
-                <tr>
-                    <td>
-                        <b>Name:</b>
-                    </td>
-                    <td>{catData.name}</td>
-                </tr>
-                <tr>
-                    <td>
-                        <b> Birth year:</b>
-                    </td>
-                    <td>
-                        {catBirthYear(catData.birth)} ({catAge(catData.birth)}{' '}
-                        years old)
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <b>Breed:</b>
-                    </td>
-                    <td>{catData.breed}</td>
-                </tr>
-                <tr>
-                    <td>
-                        <b>Colour:</b>
-                    </td>
-                    <td>{catData.color}</td>
-                </tr>
-                <tr>
-                    <td>
-                        <b>Favourite toy:</b>
-                    </td>
-                    <td>{catData.fav_toy}</td>
-                </tr>
-            </>
-        );
+
+  if (catData) {
+    genInfoFields = isEditing ? (
+      <>
+        <tr>
+          <td>
+            <b>Name:</b>
+          </td>
+          <td>
+            <input
+              defaultValue={catData.name}
+              key="name"
+              id="name"
+              onChange={handleInfoChange}
+            />
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <b> Birth year:</b>
+          </td>
+          <td>
+            <input
+              defaultValue={catBirthYear(catData.birth)}
+              key="birth"
+              id="birth"
+              onChange={handleInfoChange}
+            />
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <b>Breed:</b>
+          </td>
+          <td>
+            <input
+              value={catData.breed}
+              key="breed"
+              id="breed"
+              onChange={handleInfoChange}
+            />
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <b>Colour:</b>
+          </td>
+          <td>
+            <input
+              value={catData.color}
+              key="color"
+              id="color"
+              onChange={handleInfoChange}
+            />
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <b>Favourite toy:</b>
+          </td>
+          <td>
+            <input
+              value={catData.fav_toy}
+              key="fav_toy"
+              id="fav_toy"
+              onChange={handleInfoChange}
+            />
+          </td>
+        </tr>
+      </>
+    ) : (
+      <>
+        <tr>
+          <td>
+            <b>Name:</b>
+          </td>
+          <td>{catData.name}</td>
+        </tr>
+        <tr>
+          <td>
+            <b> Birth year:</b>
+          </td>
+          <td>
+            {catBirthYear(catData.birth)} ({catAge(catData.birth)} years old)
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <b>Breed:</b>
+          </td>
+          <td>{catData.breed}</td>
+        </tr>
+        <tr>
+          <td>
+            <b>Colour:</b>
+          </td>
+          <td>{catData.color}</td>
+        </tr>
+        <tr>
+          <td>
+            <b>Favourite toy:</b>
+          </td>
+          <td>{catData.fav_toy}</td>
+        </tr>
+      </>
+    );
+  }
+
+  const handleSave = () => {
+    setIsEditing(false);
+    const profileForm = document.querySelector(".editable-gen-info-container");
+    const inputs = profileForm.querySelectorAll("input");
+    const body = {};
+    inputs.forEach(i => {
+      if (i.getAttribute("hasChanged")) {
+        body[i.id] = i.value;
+        i.setAttribute("hasChanged", false)
+      };
+    });
+  patchCatProfile(body, catData);
+  };
+
+  const handleDeleteHealthRecord = async (recordName, recordID) => {
+    const response = await fetch(`/api/v1/cats/${catID}/${recordName}/${recordID}`, {method: "DELETE"});
+    if (response.ok) {
+      console.log("Successfully deleted");
+      setIsEditing(!isEditing);
+    } else {
+      console.log(response.status);
     }
 
-    const handleSave = () => {
-        setIsEditing(false);
-        const profileForm = document.querySelector(
-            '.editable-gen-info-container'
-        );
-        const inputs = profileForm.querySelectorAll('input');
-        const body = {};
-        inputs.forEach((i) => {
-            if (i.getAttribute('hasChanged')) {
-                body[i.id] = i.value;
-                i.setAttribute('hasChanged', false);
-            }
-        });
-        patchCatProfile(body, catData);
-    };
 
-    const handleDeleteHealthRecord = async (recordName, recordID) => {
-        const response = await fetch(
-            `/api/v1/cats/${catID}/${recordName}/${recordID}`,
-            { method: 'DELETE' }
-        );
-        if (response.ok) {
-          console.log('Successfully deleted');
-          setNeedReload(!needReload)
-        } else {
-            console.log(response.status);
-        }
-    };
+  const handleEditHealthRecord = async (recordName, rec) => {
+    setRecordName(recordName);
+    setRecordToEdit(rec);
+  };
+
+  const updateHealtRecord = async (editedHealthRecord, recordName, recordID) => {
+    const response = await fetch(`/api/v1/cats/${catID}/${recordName}/${recordID}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(editedHealthRecord )
+    });
+    
+    if (response.ok) {
+      console.log("Successfully edited!");
+      setIsEditing(false);
+    } else {
+      alert("Editing has failed.")
+    }
+  };
 
     return catData ? (
         <div className='profile-page-container'>
@@ -291,7 +317,6 @@ export default function CatProfile() {
                         <button className='new-hr-btn'>ADD NEW</button>
                     </Link>
                 </h2>
-
                 <div className='catprofile-hr-container'>
                     <table className='hr-table'>
                         <thead>
@@ -302,8 +327,7 @@ export default function CatProfile() {
                             </tr>
                         </thead>
                         <tbody>
-                            {catData.health_rec.length <= 3
-                                ? catData.health_rec.map((rec) => (
+                            {catData.health_rec.map((rec) => (
                                       <tr>
                                           <td>{`${rec.date ? String(rec.date).slice(0, -14) : "-"}`}</td>
                                           <td>{rec.symptoms.join(', ')}</td>
@@ -322,19 +346,7 @@ export default function CatProfile() {
                                           </td>
                                       </tr>
                                   ))
-                                : catData.health_rec.splice(0, 3).map((rec) => (
-                                      <>
-                                          <tr>
-                                              <td>{`${rec.date ? String(rec.date).slice(0, -14) : "-"}`}</td>
-                                              <td>{rec.symptoms.join(', ')}</td>
-                                              <td>{rec.result}</td>
-                                              <td>{rec.comment}</td>
-                                              <td>
-                                                  <button>DELETE</button>
-                                              </td>
-                                          </tr>
-                                      </>
-                                  ))}
+                                }
                         </tbody>
                     </table>
                 </div>
@@ -352,8 +364,7 @@ export default function CatProfile() {
                             </tr>
                         </thead>
                         <tbody>
-                            {catData.vet_visit.length <= 3
-                                ? catData.vet_visit.map((rec) => (
+                            {catData.vet_visit.map((rec) => (
                                       <tr>
                                           <td>{`${rec.date ? String(rec.date).slice(0, -14) : "-"}`}</td>
                                           <td>{rec.symptoms.join(', ')}</td>
@@ -364,20 +375,7 @@ export default function CatProfile() {
                                           </td>
                                       </tr>
                                   ))
-                                : catData.vet_visit.splice(0, 3).map((rec) => (
-                                      <>
-                                          <tr>
-                                              <td>{`${rec.date ? String(rec.date).slice(0, -14) : "-"}`}</td>
-                                              <td>{rec.symptoms.join(', ')}</td>
-                                              <td>{rec.result}</td>
-                                              <td>{rec.comment}</td>
-                                              <td>
-                                                  <button>DELETE</button>
-                                              </td>
-                                          </tr>
-                                          <button>LOAD MORE</button>
-                                      </>
-                                  ))}
+                                }
                         </tbody>
                     </table>
                 </div>
@@ -396,8 +394,7 @@ export default function CatProfile() {
                             </tr>
                         </thead>
                         <tbody>
-                            {catData.vaccination.length <= 3
-                                ? catData.vaccination.map((rec) => (
+                            {catData.vaccination.map((rec) => (
                                       <tr>
                                           <td>{`${rec.get_date ? String(rec.get_date).slice(0, -14) : "-"}`}</td>
                                           <td>{`${rec.exp_date ? String(rec.exp_date).slice(0, -14) : "-"}`}</td>
@@ -408,23 +405,7 @@ export default function CatProfile() {
                                           </td>
                                       </tr>
                                   ))
-                                : catData.vaccination
-                                      .splice(0, 3)
-                                      .map((rec) => (
-                                          <>
-                                              <tr>
-                                                  <td>{`${rec.get_date ? String(rec.get_date).slice(0, -14) : "-"}`}</td>
-                                                  <td>{`${rec.exp_date ? String(rec.exp_date).slice(0, -14) : "-"}`}</td>
-                                                  <td>{rec.name}</td>
-                                                  <td>{rec.comment}</td>
-                                                  <td>
-                                                      <button>EDIT</button>
-                                                      <button>DELETE</button>
-                                                  </td>
-                                              </tr>
-                                              <button>LOAD MORE</button>
-                                          </>
-                                      ))}
+                                }
                         </tbody>
                     </table>
                 </div>

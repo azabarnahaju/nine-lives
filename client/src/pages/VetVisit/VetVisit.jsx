@@ -99,49 +99,56 @@ export default function HealthRecord() {
             
     };
     
-      return (<>
-        <Navbar />
-        <PageTitle title={"New Vet visit"} />
-        <BackBtn path={`/mycats/${catID}`} />
-        <div className='new-vet-visit-container'>
-        <form className='new-vet-visit-form' onSubmit={handleSubmit}>
-          <div className='new-vet-visit-inputs-container' >
-          <input
-            type='date'
-            className='new-vet-visit-date-input'
-            onChange={handleDateChange}
-            ref={dateInputRef}
-            required={true}
-          />
-          
-          <input
-            type='text'
-            className='new-vet-visit-input-text'
-            value={newLog.symptoms}
-            onChange={handleSymptomsChange}
-            required={true}
-          />
-          
-          <input
-            type='text'
-            className='new-vet-visit-input-text'
-            value={newLog.result}
-            onChange={handleResultChange}
-            required={true}
-          />
-          
-          <input
-            type='text'
-            className='new-vet-visit-input-text'
-            value={newLog.comment}
-            onChange={handleCommentChange}
-          />
+
+      return (
+        <>
+          <Navbar />
+          <div className="vet-visit-pagetitle">
+            <PageTitle title={"New Vet visit"} />
+            <BackBtn path={`/mycats/${catID}`} />
           </div>
-          <div className='new-vet-visit-save-button-container'>
-            <button type='submit' className='new-vet-visit-submit-button'>Save</button>
+          <div className="new-vet-visit-container">
+            <form className="new-vet-visit-form" onSubmit={handleSubmit}>
+              <div className="new-vet-visit-inputs-container">
+                <label>Date</label>
+                <input
+                  type="date"
+                  className="new-vet-visit-date-input"
+                  onChange={handleDateChange}
+                  ref={dateInputRef}
+                  required={true}
+                />
+                <label>Symptoms</label>
+                <input
+                  type="text"
+                  className="new-vet-visit-input-text"
+                  value={newLog.symptoms}
+                  onChange={handleSymptomsChange}
+                  required={true}
+                />
+                <label>Result</label>
+                <input
+                  type="text"
+                  className="new-vet-visit-input-text"
+                  value={newLog.result}
+                  onChange={handleResultChange}
+                  required={true}
+                />
+                <label>Comments</label>
+                <input
+                  type="text"
+                  className="new-vet-visit-input-text"
+                  value={newLog.comment}
+                  onChange={handleCommentChange}
+                />
+              </div>
+              <div className="new-vet-visit-save-button-container">
+                <button type="submit" className="new-vet-visit-submit-button">
+                  Save
+                </button>
+              </div>
+            </form>
           </div>
-        </form>
-        </div>
         </>
       );
     }

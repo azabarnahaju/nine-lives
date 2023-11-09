@@ -9,7 +9,7 @@
     column-gap: 3rem;
     row-gap: 2rem;
     position: relative;
-    margin-left: 25rem;
+    margin-left: 20rem;
     margin-right: auto;
     margin-top: 6rem;
 }
@@ -18,8 +18,8 @@
 border-radius: 10%;
 }
 .cat-modal {
-    width: 34rem;
-    height: 30rem;
+    width: 37rem;
+    height: 35rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -32,14 +32,14 @@ border-radius: 10%;
 
 .cat-modal h1 {
     padding-bottom: 0.5rem;
-    font-size: 4rem;
+    font-size: 3rem;
     font-family: 'Gruppo', sans-serif;
     letter-spacing: 4px;
 }
 
 .cat-modal span {
     margin-bottom: 1rem;
-    font-size: 2rem;
+    font-size: 1.5rem;
     font-family: 'Satisfy', cursive;
     color: #beb4aed5;
 }

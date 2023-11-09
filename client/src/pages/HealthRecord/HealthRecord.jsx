@@ -110,8 +110,12 @@ export default function HealthRecord() {
     return !isLoading ? (
       <>
         <Navbar />
-        <PageTitle title={"New health record"} />
-        <BackBtn path={`/mycats/${catID}`} />
+
+        <div className="health-record-pagetitle">
+          <PageTitle title={"New health record"} />
+            <BackBtn path={`/mycats/${catID}`} />
+        </div>
+
         <div className="health-form-container">
           <form onSubmit={handleSubmit} className="health-form">
             <div className="autocomplete-parent-div">
@@ -138,10 +142,14 @@ export default function HealthRecord() {
               >
                 Search
               </button>
+              <button
+                className="health-record-save-btn"
+                type="submit"
+                disabled={!searched}
+              >
+                SAVE
+              </button>
             </div>
-            <button type="submit" disabled={!searched}>
-              SAVE
-            </button>
           </form>
           {searched && (
             <div className="diseases-container-div">
