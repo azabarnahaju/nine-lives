@@ -246,7 +246,9 @@ async function editRecord(req, res) {
     } else {
       res.status(500);
       throw new Error("Internal server error");
-
+    } 
+    } catch (err){
+        res.json(err.message);
     }
 }
 

@@ -20,25 +20,25 @@ const lastVisitDate = (vet_visit) => {
 };
 const daysUntilNextVacc = (lastVisit) =>
     365 - (Date.now() - lastVisit) / (1000 * 60 * 60 * 24);
-const patchCatProfile = async (body, catData) => {
-    console.log(catData._id);
-    try {
-        const response = await fetch(`${url}/${catData._id}`, {
-            method: 'PATCH',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(body),
-        });
-        console.log(response);
-        if (response.ok) {
-            alert(`${catData.name}'s profile update was successful!`);
-        } else {
-            throw new Error('Error updating the cat profile.');
-        }
-    } catch (error) {
-        console.log(error);
+const patchCatProfile = async (body, catData, setNeedReload, needReload) => {
+  console.log(catData._id);
+  try {
+    const response = await fetch(`${url}/${catData._id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
+    });
+    setNeedReload(!needReload);
+    if (response.ok) {
+      alert(`${catData.name}'s profile update was successful!`);
+    } else {
+      throw new Error("Error updating the cat profile.");
     }
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 export default function CatProfile() {
@@ -197,17 +197,18 @@ export default function CatProfile() {
         i.setAttribute("hasChanged", false)
       };
     });
-  patchCatProfile(body, catData);
+  patchCatProfile(body, catData, setNeedReload, needReload);
   };
 
   const handleDeleteHealthRecord = async (recordName, recordID) => {
     const response = await fetch(`/api/v1/cats/${catID}/${recordName}/${recordID}`, {method: "DELETE"});
     if (response.ok) {
       console.log("Successfully deleted");
-      setIsEditing(!isEditing);
+      setNeedReload(!needReload);
     } else {
       console.log(response.status);
     }
+  }
 
 
   const handleEditHealthRecord = async (recordName, rec) => {
@@ -233,185 +234,198 @@ export default function CatProfile() {
   };
 
     return catData ? (
-        <div className='profile-page-container'>
-            <Navbar />
-            <ProfileLogo />
-            <PageTitle title='my cats' />
-            <div className='catprofile-container'>
-                <h2>
-                    General information
-                    <button
-                        className='catprofile-edit-btn'
-                        onClick={() => setIsEditing(true)}
-                        disabled={isEditing ? true : false}
-                    >
-                        Edit
-                    </button>
-                    {isEditing && (
-                        <button
-                            type='submit'
-                            className='catprofile-save-btn'
-                            onClick={handleSave}
-                        >
-                            Save
-                        </button>
-                    )}
-                </h2>
-                <div className='catprofile-gen-info-container'>
-                    <div className='catprofile-gen-info-text-container'>
-                        <table className='editable-gen-info-container'>
-                            {genInfoFields}
-                        </table>
-                        <table className='static-gen-info-container'>
-                            <tr>
-                                <td>
-                                    <b>Currently vaccinated:</b>
-                                </td>
-                                <td>{catData.curr_vacc ? 'YES' : 'NO'}</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <b>Next vaccination due in</b>
-                                </td>
-                                <td>
-                                    {Math.floor(
-                                        daysUntilNextVacc(
-                                            lastVisitDate(catData.vet_visit)
-                                        ) / 30
-                                    )}{' '}
-                                    months,{' '}
-                                    {Math.floor(
-                                        daysUntilNextVacc(
-                                            lastVisitDate(catData.vet_visit)
-                                        ) % 30
-                                    )}{' '}
-                                    days
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <b>Last visit to the vet:</b>
-                                </td>
-                                <td>
-                                    {lastVisitDate(catData.vet_visit).getDate()}
-                                    /
-                                    {lastVisitDate(
-                                        catData.vet_visit
-                                    ).getMonth()}
-                                    /
-                                    {lastVisitDate(
-                                        catData.vet_visit
-                                    ).getFullYear()}
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-                    <div className='catprofile-pic-container'>
-                        <img className='cat-profile-pic' src={catData.image} />
-                    </div>
-                </div>
-
-                <h2>
-                    Health records{' '}
-                    <Link to={`/newhealthrecord/${catID}`}>
-                        <button className='new-hr-btn'>ADD NEW</button>
-                    </Link>
-                </h2>
-                <div className='catprofile-hr-container'>
-                    <table className='hr-table'>
-                        <thead>
-                            <tr>
-                                <th>Date</th>
-                                <th>Symptoms</th>
-                                <th>Result</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {catData.health_rec.map((rec) => (
-                                      <tr>
-                                          <td>{`${rec.date ? String(rec.date).slice(0, -14) : "-"}`}</td>
-                                          <td>{rec.symptoms.join(', ')}</td>
-                                          <td>{rec.result.join(', ')}</td>
-                                          <td>
-                                              <button
-                                                  onClick={() =>
-                                                      handleDeleteHealthRecord(
-                                                          'health_rec',
-                                                          rec._id
-                                                      )
-                                                  }
-                                              >
-                                                  DELETE
-                                              </button>
-                                          </td>
-                                      </tr>
-                                  ))
-                                }
-                        </tbody>
-                    </table>
-                </div>
-                <h2>
-                    Vet records<Link to={`/mycats/newvetvisit/${catID}`} ><button className='new-hr-btn'>ADD NEW</button></Link>
-                </h2>
-                <div className='catprofile-vr-container'>
-                    <table className='vr-table'>
-                        <thead>
-                            <tr>
-                                <th>Date</th>
-                                <th>Symptoms</th>
-                                <th>Result</th>
-                                <th>Comments</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {catData.vet_visit.map((rec) => (
-                                      <tr>
-                                          <td>{`${rec.date ? String(rec.date).slice(0, -14) : "-"}`}</td>
-                                          <td>{rec.symptoms.join(', ')}</td>
-                                          <td>{rec.result}</td>
-                                          <td>{rec.comment}</td>
-                                          <td>
-                                              <button>DELETE</button>
-                                          </td>
-                                      </tr>
-                                  ))
-                                }
-                        </tbody>
-                    </table>
-                </div>
-                <h2>
-                    Vaccination records
-                    <Link to={`/newvaccination/${catID}`} ><button className='new-vr-btn'>ADD NEW</button></Link>
-                </h2>
-                <div className='catprofile-vr-container'>
-                    <table className='vr-table'>
-                        <thead>
-                            <tr>
-                                <th>Date</th>
-                                <th>Expiration</th>
-                                <th>Type</th>
-                                <th>Comments</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {catData.vaccination.map((rec) => (
-                                      <tr>
-                                          <td>{`${rec.get_date ? String(rec.get_date).slice(0, -14) : "-"}`}</td>
-                                          <td>{`${rec.exp_date ? String(rec.exp_date).slice(0, -14) : "-"}`}</td>
-                                          <td>{rec.name}</td>
-                                          <td>{rec.comment}</td>
-                                          <td>
-                                              <button>DELETE</button>
-                                          </td>
-                                      </tr>
-                                  ))
-                                }
-                        </tbody>
-                    </table>
-                </div>
+      <div className="profile-page-container">
+        <Navbar />
+        <ProfileLogo />
+        <PageTitle title="my cats" />
+        <div className="catprofile-container">
+          <h2>
+            General information
+            <button
+              className="catprofile-edit-btn"
+              onClick={() => setIsEditing(true)}
+              disabled={isEditing ? true : false}
+            >
+              Edit
+            </button>
+            {isEditing && (
+              <button
+                type="submit"
+                className="catprofile-save-btn"
+                onClick={handleSave}
+              >
+                Save
+              </button>
+            )}
+          </h2>
+          <div className="catprofile-gen-info-container">
+            <div className="catprofile-gen-info-text-container">
+              <table className="editable-gen-info-container">
+                {genInfoFields}
+              </table>
+              <table className="static-gen-info-container">
+                <tr>
+                  <td>
+                    <b>Currently vaccinated:</b>
+                  </td>
+                  <td>{catData.curr_vacc ? "YES" : "NO"}</td>
+                </tr>
+                <tr>
+                  <td>
+                    <b>Next vaccination due in</b>
+                  </td>
+                  <td>
+                    {Math.floor(
+                      daysUntilNextVacc(lastVisitDate(catData.vet_visit)) / 30
+                    )}{" "}
+                    months,{" "}
+                    {Math.floor(
+                      daysUntilNextVacc(lastVisitDate(catData.vet_visit)) % 30
+                    )}{" "}
+                    days
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <b>Last visit to the vet:</b>
+                  </td>
+                  <td>
+                    {lastVisitDate(catData.vet_visit).getDate()}/
+                    {lastVisitDate(catData.vet_visit).getMonth()}/
+                    {lastVisitDate(catData.vet_visit).getFullYear()}
+                  </td>
+                </tr>
+              </table>
             </div>
+            <div className="catprofile-pic-container">
+              <img className="cat-profile-pic" src={catData.image} />
+            </div>
+          </div>
+
+          <h2>
+            Health records{" "}
+            <Link to={`/newhealthrecord/${catID}`}>
+              <button className="new-hr-btn">ADD NEW</button>
+            </Link>
+          </h2>
+          <div className="catprofile-hr-container">
+            <table className="hr-table">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Symptoms</th>
+                  <th>Result</th>
+                </tr>
+              </thead>
+              <tbody>
+                {catData.health_rec.map((rec) => (
+                  <tr>
+                    <td>{`${
+                      rec.date ? String(rec.date).slice(0, -14) : "-"
+                    }`}</td>
+                    <td>{rec.symptoms.join(", ")}</td>
+                    <td>{rec.result.join(", ")}</td>
+                    <td>
+                      <button
+                        className="new-hr-btn"
+                        onClick={() =>
+                          handleDeleteHealthRecord("health_rec", rec._id)
+                        }
+                      >
+                        DELETE
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <h2>
+            Vet records
+            <Link to={`/mycats/newvetvisit/${catID}`}>
+              <button className="new-hr-btn">ADD NEW</button>
+            </Link>
+          </h2>
+          <div className="catprofile-vr-container">
+            <table className="hr-table">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Symptoms</th>
+                  <th>Result</th>
+                  <th>Comments</th>
+                </tr>
+              </thead>
+              <tbody>
+                {catData.vet_visit.map((rec) => (
+                  <tr>
+                    <td>{`${
+                      rec.date ? String(rec.date).slice(0, -14) : "-"
+                    }`}</td>
+                    <td>{rec.symptoms.join(", ")}</td>
+                    <td>{rec.result}</td>
+                    <td>{rec.comment}</td>
+                    <td>
+                      <button
+                        onClick={() =>
+                          handleDeleteHealthRecord("vet_visit", rec._id)
+                        }
+                        className="new-hr-btn"
+                      >
+                        DELETE
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <h2>
+            Vaccination records
+            <Link to={`/newvaccination/${catID}`}>
+              <button className="new-hr-btn">ADD NEW</button>
+            </Link>
+          </h2>
+          <div className="catprofile-vr-container">
+            <table className="hr-table">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Expiration</th>
+                  <th>Type</th>
+                  <th>Comments</th>
+                </tr>
+              </thead>
+              <tbody>
+                {catData.vaccination.map((rec) => (
+                  <tr>
+                    <td>{`${
+                      rec.get_date ? String(rec.get_date).slice(0, -14) : "-"
+                    }`}</td>
+                    <td>{`${
+                      rec.exp_date ? String(rec.exp_date).slice(0, -14) : "-"
+                    }`}</td>
+                    <td>{rec.name}</td>
+                    <td>{rec.comment}</td>
+                    <td>
+                      <button
+                        onClick={() =>
+                          handleDeleteHealthRecord("vaccination", rec._id)
+                        }
+                        className="new-hr-btn"
+                      >
+                        DELETE
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
+      </div>
     ) : (
-        <p>Loading</p>
+      <p>Loading</p>
     );
 }
+
