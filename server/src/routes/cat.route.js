@@ -8,5 +8,7 @@ router
     .get(catQuery.getCat)
     .patch(catQuery.patchCat)
     .delete(catQuery.deleteCat);
+router.route('/:catID/:recordName/:recordID')
+    .delete(catQuery.deleteRecord);
 
 module.exports = router;

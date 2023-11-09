@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import ProfileLogo from "../../components/ProfileLogo/ProfileLogo";
 import PageTitle from "../../components/PageTitle/PageTitle";
+import { Link } from "react-router-dom";
 
 const url = "http://localhost:4000/api/v1/cats"
 const catBirthYear = (birth) => Math.floor(new Date(birth).getFullYear());
@@ -184,6 +185,15 @@ export default function CatProfile() {
   patchCatProfile(body, catData);
   };
 
+  const handleDeleteHealthRecord = async (recordName, recordID) => {
+    const response = await fetch(`/api/v1/cats/${catID}/${recordName}/${recordID}`, {method: "DELETE"});
+    if (response.ok) {
+      console.log("Successfully deleted");
+    } else {
+      console.log(response.status);
+    }
+  }
+
   return catData ? (
     <div className="profile-page-container">
       <Navbar />
@@ -200,7 +210,11 @@ export default function CatProfile() {
             Edit
           </button>
           {isEditing && (
-            <button type="submit" className="catprofile-save-btn" onClick={handleSave}>
+            <button
+              type="submit"
+              className="catprofile-save-btn"
+              onClick={handleSave}
+            >
               Save
             </button>
           )}
@@ -248,9 +262,14 @@ export default function CatProfile() {
             <img className="cat-profile-pic" src={catData.image} />
           </div>
         </div>
+
         <h2>
-          Health records<button className="new-hr-btn">ADD NEW</button>
+          Health records{" "}
+          <Link to={`/newhealthrecord/${catID}`}>
+            <button className="new-hr-btn">ADD NEW</button>
+          </Link>
         </h2>
+
         <div className="catprofile-hr-container">
           <table className="hr-table">
             <thead>
@@ -258,20 +277,23 @@ export default function CatProfile() {
                 <th>Date</th>
                 <th>Symptoms</th>
                 <th>Result</th>
-                <th>Comments</th>
               </tr>
             </thead>
             <tbody>
               {catData.health_rec.length <= 3
                 ? catData.health_rec.map((rec) => (
-                    <tr >
+                    <tr>
                       <td>{rec.date}</td>
                       <td>{rec.symptoms.join(", ")}</td>
-                      <td>{rec.result}</td>
-                      <td>{rec.comment}</td>
+                      <td>{rec.result.join(", ")}</td>
                       <td>
-                        <button>EDIT</button>
-                        <button>DELETE</button>
+                        <button
+                          onClick={() =>
+                            handleDeleteHealthRecord("health_rec", rec._id)
+                          }
+                        >
+                          DELETE
+                        </button>
                       </td>
                     </tr>
                   ))

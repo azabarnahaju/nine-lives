@@ -25,7 +25,7 @@ function App() {
             <Route path="/signup" element={<Signup />}></Route>
             <Route path="/mycats" element={<MyCats />}></Route>
             <Route path="/mycats/:catID" element={<CatProfile />}></Route>
-            <Route path="/newhealthrecord" element={<HealthRecord />}></Route>
+            <Route path="/newhealthrecord/:catID" element={<HealthRecord />}></Route>
             <Route path='/mycats/newvetvisit/:catID' element={<VetVisit />}></Route>
             <Route path="/profile/:userID" element={<Profile />}></Route>
             <Route path='/breeds' element={<Breeds />}></Route>

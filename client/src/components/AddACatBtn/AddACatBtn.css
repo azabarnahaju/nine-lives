@@ -1,5 +1,5 @@
 .add-a-cat-btn {
-    position: absolute;
+    position: fixed;
     bottom: 4rem;
     right: 5rem;
     display: inline-block;
