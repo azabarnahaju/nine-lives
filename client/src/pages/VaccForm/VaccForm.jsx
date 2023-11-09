@@ -2,6 +2,7 @@ import PageTitle from "../../components/PageTitle/PageTitle";
 import "./VaccForm.css"
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import BackBtn from "../../components/BackBtn/BackBtn";
 
 const addVaccLog = async (catID, vaccination) => {
   const response = await fetch(`/api/v1/cats/${catID}`, {
@@ -46,6 +47,7 @@ export default function VaccForm() {
       <div className="vacc-title">
         <PageTitle title="New vaccination log" />
       </div>
+      <BackBtn path={`/mycats/${catID}`} />
       <div className="vacc-form-container">
         <form id="vacc-form">
           <label>Name</label>
