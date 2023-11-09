@@ -18,8 +18,11 @@ export default function MyCats() {
   useEffect(() => {
     const getCats = async () => {
       try {
-        const catData = await fetch("http://localhost:4000/api/v1/cats");
-        const cats = await catData.json();
+        const response = await fetch(`/api/v1/users/${currUser._id}`)
+        const userData = await response.json()
+        console.log(userData);
+        // const catData = await fetch("http://localhost:4000/api/v1/cats");
+        const cats = userData.cats;
         setUserCats(cats);
       } catch (err) {
         toast.error(err, {
