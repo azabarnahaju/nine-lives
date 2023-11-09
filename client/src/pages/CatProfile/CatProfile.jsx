@@ -1,10 +1,11 @@
 import Navbar from "../../components/Navbar/Navbar";
 import "./CatProfile.css";
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import ProfileLogo from "../../components/ProfileLogo/ProfileLogo";
 import PageTitle from "../../components/PageTitle/PageTitle";
 import { Link } from "react-router-dom";
+import HealthRecordEditor from "../HealthRecordEditor/HealthRecordEditor";
 
 const url = "http://localhost:4000/api/v1/cats"
 const catBirthYear = (birth) => Math.floor(new Date(birth).getFullYear());
@@ -41,6 +42,9 @@ export default function CatProfile() {
   let { catID } = useParams();
   const [catData, setCatData] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
+  const navigate = useNavigate();
+  const [recordToEdit, setRecordToEdit] = useState(false);
+  const [recordName, setRecordName] = useState('');
 
   useEffect(() => {
     async function fetchCatProfile(catID) {
@@ -189,116 +193,177 @@ export default function CatProfile() {
     const response = await fetch(`/api/v1/cats/${catID}/${recordName}/${recordID}`, {method: "DELETE"});
     if (response.ok) {
       console.log("Successfully deleted");
+      setIsEditing(!isEditing);
     } else {
       console.log(response.status);
     }
   }
 
+  const handleEditHealthRecord = async (recordName, rec) => {
+    setRecordName(recordName);
+    setRecordToEdit(rec);
+  };
+
+  const updateHealtRecord = async (editedHealthRecord, recordName, recordID) => {
+    const response = await fetch(`/api/v1/cats/${catID}/${recordName}/${recordID}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(editedHealthRecord )
+    });
+    
+    if (response.ok) {
+      console.log("Successfully edited!");
+      setIsEditing(false);
+    } else {
+      alert("Editing has failed.")
+    }
+  };
+
   return catData ? (
-    <div className="profile-page-container">
-      <Navbar />
-      <ProfileLogo />
-      <PageTitle title="my cats" />
-      <div className="catprofile-container">
-        <h2>
-          General information
-          <button
-            className="catprofile-edit-btn"
-            onClick={() => setIsEditing(true)}
-            disabled={isEditing ? true : false}
-          >
-            Edit
-          </button>
-          {isEditing && (
+    recordToEdit ? (
+      <HealthRecordEditor
+        setRecordToEdit={setRecordToEdit}
+        recordToEdit={recordToEdit}
+        recordName={recordName}
+        updateHealtRecord={updateHealtRecord}
+      />
+    ) : (
+      <div className="profile-page-container">
+        <Navbar />
+        <ProfileLogo />
+        <PageTitle title="my cats" />
+        <div className="catprofile-container">
+          <h2>
+            General information
             <button
-              type="submit"
-              className="catprofile-save-btn"
-              onClick={handleSave}
+              className="catprofile-edit-btn"
+              onClick={() => setIsEditing(true)}
+              disabled={isEditing ? true : false}
             >
-              Save
+              Edit
             </button>
-          )}
-        </h2>
-        <div className="catprofile-gen-info-container">
-          <div className="catprofile-gen-info-text-container">
-            <table className="editable-gen-info-container">
-              {genInfoFields}
-            </table>
-            <table className="static-gen-info-container">
-              <tr>
-                <td>
-                  <b>Currently vaccinated:</b>
-                </td>
-                <td>{catData.curr_vacc ? "YES" : "NO"}</td>
-              </tr>
-              <tr>
-                <td>
-                  <b>Next vaccination due in</b>
-                </td>
-                <td>
-                  {Math.floor(
-                    daysUntilNextVacc(lastVisitDate(catData.vet_visit)) / 30
-                  )}{" "}
-                  months,{" "}
-                  {Math.floor(
-                    daysUntilNextVacc(lastVisitDate(catData.vet_visit)) % 30
-                  )}{" "}
-                  days
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <b>Last visit to the vet:</b>
-                </td>
-                <td>
-                  {lastVisitDate(catData.vet_visit).getDate()}/
-                  {lastVisitDate(catData.vet_visit).getMonth()}/
-                  {lastVisitDate(catData.vet_visit).getFullYear()}
-                </td>
-              </tr>
+            {isEditing && (
+              <button
+                type="submit"
+                className="catprofile-save-btn"
+                onClick={handleSave}
+              >
+                Save
+              </button>
+            )}
+          </h2>
+          <div className="catprofile-gen-info-container">
+            <div className="catprofile-gen-info-text-container">
+              <table className="editable-gen-info-container">
+                {genInfoFields}
+              </table>
+              <table className="static-gen-info-container">
+                <tr>
+                  <td>
+                    <b>Currently vaccinated:</b>
+                  </td>
+                  <td>{catData.curr_vacc ? "YES" : "NO"}</td>
+                </tr>
+                <tr>
+                  <td>
+                    <b>Next vaccination due in</b>
+                  </td>
+                  <td>
+                    {Math.floor(
+                      daysUntilNextVacc(lastVisitDate(catData.vet_visit)) / 30
+                    )}{" "}
+                    months,{" "}
+                    {Math.floor(
+                      daysUntilNextVacc(lastVisitDate(catData.vet_visit)) % 30
+                    )}{" "}
+                    days
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <b>Last visit to the vet:</b>
+                  </td>
+                  <td>
+                    {lastVisitDate(catData.vet_visit).getDate()}/
+                    {lastVisitDate(catData.vet_visit).getMonth()}/
+                    {lastVisitDate(catData.vet_visit).getFullYear()}
+                  </td>
+                </tr>
+              </table>
+            </div>
+            <div className="catprofile-pic-container">
+              <img className="cat-profile-pic" src={catData.image} />
+            </div>
+          </div>
+          <h2>
+            Health records
+            <Link to={`/newhealthrecord/${catID}`}>
+              <button className="new-hr-btn">ADD NEW</button>
+            </Link>
+          </h2>
+          <div className="catprofile-hr-container">
+            <table className="hr-table">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Symptoms</th>
+                  <th>Result</th>
+                </tr>
+              </thead>
+              <tbody>
+                {catData.health_rec.length <= 3
+                  ? catData.health_rec.map((rec) => (
+                      <tr>
+                        <td>{rec.date}</td>
+                        <td>{rec.symptoms.join(", ")}</td>
+                        <td>{rec.result.join(", ")}</td>
+                        <td>
+                          <button
+                            onClick={() =>
+                              handleDeleteHealthRecord("health_rec", rec._id)
+                            }
+                          >
+                            DELETE
+                          </button>
+                        </td>
+                      </tr>
+                    ))
+                  : catData.health_rec.splice(0, 3).map((rec) => (
+                      <>
+                        <tr>
+                          <td>{rec.date}</td>
+                          <td>{rec.symptoms.join(", ")}</td>
+                          <td>{rec.result}</td>
+                          <td>{rec.comment}</td>
+                          <td>
+                            <button>EDIT</button>
+                            <button>DELETE</button>
+                          </td>
+                        </tr>
+                        <button>LOAD MORE</button>
+                      </>
+                    ))}
+              </tbody>
             </table>
           </div>
-          <div className="catprofile-pic-container">
-            <img className="cat-profile-pic" src={catData.image} />
-          </div>
-        </div>
-
-        <h2>
-          Health records{" "}
-          <Link to={`/newhealthrecord/${catID}`}>
-            <button className="new-hr-btn">ADD NEW</button>
-          </Link>
-        </h2>
-
-        <div className="catprofile-hr-container">
-          <table className="hr-table">
-            <thead>
-              <tr>
-                <th>Date</th>
-                <th>Symptoms</th>
-                <th>Result</th>
-              </tr>
-            </thead>
-            <tbody>
-              {catData.health_rec.length <= 3
-                ? catData.health_rec.map((rec) => (
-                    <tr>
-                      <td>{rec.date}</td>
-                      <td>{rec.symptoms.join(", ")}</td>
-                      <td>{rec.result.join(", ")}</td>
-                      <td>
-                        <button
-                          onClick={() =>
-                            handleDeleteHealthRecord("health_rec", rec._id)
-                          }
-                        >
-                          DELETE
-                        </button>
-                      </td>
-                    </tr>
-                  ))
-                : catData.health_rec.splice(0, 3).map((rec) => (
-                    <>
+          <h2>
+            Vet records<button className="new-hr-btn">ADD NEW</button>
+          </h2>
+          <div className="catprofile-vr-container">
+            <table className="vr-table">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Symptoms</th>
+                  <th>Result</th>
+                  <th>Comments</th>
+                </tr>
+              </thead>
+              <tbody>
+                {catData.vet_visit.length <= 3
+                  ? catData.vet_visit.map((rec) => (
                       <tr>
                         <td>{rec.date}</td>
                         <td>{rec.symptoms.join(", ")}</td>
@@ -309,104 +374,72 @@ export default function CatProfile() {
                           <button>DELETE</button>
                         </td>
                       </tr>
-                      <button>LOAD MORE</button>
-                    </>
-                  ))}
-            </tbody>
-          </table>
-        </div>
-        <h2>
-          Vet records<button className="new-hr-btn">ADD NEW</button>
-        </h2>
-        <div className="catprofile-vr-container">
-          <table className="vr-table">
-            <thead>
-              <tr>
-                <th>Date</th>
-                <th>Symptoms</th>
-                <th>Result</th>
-                <th>Comments</th>
-              </tr>
-            </thead>
-            <tbody>
-              {catData.vet_visit.length <= 3
-                ? catData.vet_visit.map((rec) => (
-                    <tr>
-                      <td>{rec.date}</td>
-                      <td>{rec.symptoms.join(", ")}</td>
-                      <td>{rec.result}</td>
-                      <td>{rec.comment}</td>
-                      <td>
-                        <button>EDIT</button>
-                        <button>DELETE</button>
-                      </td>
-                    </tr>
-                  ))
-                : catData.vet_visit.splice(0, 3).map((rec) => (
-                    <>
-                      <tr>
-                        <td>{rec.date}</td>
-                        <td>{rec.symptoms.join(", ")}</td>
-                        <td>{rec.result}</td>
-                        <td>{rec.comment}</td>
-                        <td>
-                          <button>EDIT</button>
-                          <button>DELETE</button>
-                        </td>
-                      </tr>
-                      <button>LOAD MORE</button>
-                    </>
-                  ))}
-            </tbody>
-          </table>
-        </div>
-        <h2>
-          Vaccination records<button className="new-vr-btn">ADD NEW</button>
-        </h2>
-        <div className="catprofile-vr-container">
-          <table className="vr-table">
-            <thead>
-              <tr>
-                <th>Date</th>
-                <th>Expiration</th>
-                <th>Type</th>
-                <th>Comments</th>
-              </tr>
-            </thead>
-            <tbody>
-              {catData.vaccination.length <= 3
-                ? catData.vaccination.map((rec) => (
-                    <tr>
-                      <td>{rec.get_date}</td>
-                      <td>{rec.exp_date}</td>
-                      <td>{rec.name}</td>
-                      <td>{rec.comment}</td>
-                      <td>
-                        <button>EDIT</button>
-                        <button>DELETE</button>
-                      </td>
-                    </tr>
-                  ))
-                : catData.vaccination.splice(0, 3).map((rec) => (
-                    <>
-                      <tr>
-                        <td>{rec.get_date}</td>
-                        <td>{rec.exp_date}</td>
-                        <td>{rec.name}</td>
-                        <td>{rec.comment}</td>
-                        <td>
-                          <button>EDIT</button>
-                          <button>DELETE</button>
-                        </td>
-                      </tr>
-                      <button>LOAD MORE</button>
-                    </>
-                  ))}
-            </tbody>
-          </table>
+                    ))
+                  : catData.vet_visit.splice(0, 3).map((rec) => (
+                      <>
+                        <tr>
+                          <td>{rec.date}</td>
+                          <td>{rec.symptoms.join(", ")}</td>
+                          <td>{rec.result}</td>
+                          <td>{rec.comment}</td>
+                          <td>
+                            <button>EDIT</button>
+                            <button>DELETE</button>
+                          </td>
+                        </tr>
+                        <button>LOAD MORE</button>
+                      </>
+                    ))}
+              </tbody>
+            </table>
+          </div>
+          <h2>
+            Vaccination records
+            <Link to={`/newvaccination/${catID}`}>
+              <button className="new-vr-btn">ADD NEW</button>
+            </Link>
+          </h2>
+          <div className="catprofile-vr-container">
+            <table className="vr-table">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Expiration</th>
+                  <th>Type</th>
+                  <th>Comments</th>
+                </tr>
+              </thead>
+              <tbody>
+                {catData.vaccination.map((rec) => (
+                  <tr>
+                    <td>{rec.get_date}</td>
+                    <td>{rec.exp_date}</td>
+                    <td>{rec.name}</td>
+                    <td>{rec.comment}</td>
+                    <td>
+                      <button
+                        onClick={() =>
+                          handleEditHealthRecord("vaccination", rec)
+                        }
+                      >
+                        EDIT
+                      </button>
+                      <button
+                        onClick={() =>
+                          handleDeleteHealthRecord("vaccination", rec._id)
+                        }
+                      >
+                        DELETE
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
-    </div>
+    )
   ) : (
     <p>Loading</p>
   );

@@ -83,6 +83,9 @@ export default function VaccForm() {
           >
             SAVE
           </button>
+            <button className="cancel-btn-vacc" type="button" onClick={() => navigate(-1)}>
+              Cancel
+            </button>
         </form>
       </div>
     </>
