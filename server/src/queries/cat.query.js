@@ -235,19 +235,21 @@ async function editRecord(req, res) {
   console.log(catID, recordID, recordType, editedRecord)
   try {
     const cat = await CatModel.findOne({ _id: catID });
-    console.log(cat)
-    const recordIndex = cat[recordType].findIndex(obj => {obj._id === new ObjectId(recordID)})
-    console.log(recordIndex);
-    cat[recordType][recordIndex] = editedRecord; 
+    const recordIndex = cat[recordType].findIndex((obj) => {
+      obj._id === new ObjectId(recordID);
+    });
+    cat[recordType][recordIndex] = {
+      _id: cat[recordType][recordIndex]._id,
+      ...editedRecord,
+    }; // updateOne({name: "Kitten", "smyptons.sname": "sim1"},{$set: {"smyptons.$.sname": "sim3"}});
     await cat.save();
-    console.log(cat[recordType]);
     if (cat) {
       return res.status(200).json(cat);
     } else {
       res.status(500);
       throw new Error("Internal server error");
-    } 
-    } catch (err){
+    }
+  } catch (err){
         res.json(err.message);
     }
 }

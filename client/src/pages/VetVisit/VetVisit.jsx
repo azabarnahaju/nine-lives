@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useRef } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import './VetVisit.css';
 import Navbar from "../../components/Navbar/Navbar.jsx";
 import PageTitle from "../../components/PageTitle/PageTitle.jsx";
 import { ToastContainer, toast } from 'react-toastify';
-import AutocompleteInput from '../HealthRecord/Suggestions.jsx';
 import BackBtn from '../../components/BackBtn/BackBtn.jsx';
-
 
 
 export default function HealthRecord() {
@@ -20,6 +18,7 @@ export default function HealthRecord() {
         comment: ""
     })
     const dateInputRef = useRef(null);
+    const navigate = useNavigate();
     
     useEffect(() => {
         async function fetchCatProfile(catID) {
@@ -71,9 +70,7 @@ export default function HealthRecord() {
         event.preventDefault();
         
         const updatedVetVisits =  [newLog];
-        console.log(updatedVetVisits)
         const dataToSend = {_id: catData._id, vet_visit: updatedVetVisits}
-        console.log(dataToSend)
         
         const dataToPush = {
             method: 'PATCH',
@@ -96,7 +93,8 @@ export default function HealthRecord() {
             .catch((error) => {
             console.error('Error updating cat data:', error);
             });
-            
+        
+            navigate(-1);
     };
     
 
