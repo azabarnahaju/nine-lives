@@ -54,28 +54,30 @@ async function postCat(req, res) {
         health_rec,
         vet_visit,
         vaccination,
-        image,
     } = req.body;
+    const image = req.file;
+
     try {
         const cat = await CatModel.create({
-            name,
-            birth,
-            breed,
-            color,
-            fav_toy,
-            curr_vacc,
-            last_visit,
-            health_rec,
-            vet_visit,
-            vaccination,
-        });
+             name,
+             birth,
+             breed,
+             color,
+             fav_toy,
+             curr_vacc,
+             last_visit,
+             health_rec,
+             vet_visit,
+             vaccination,
+         });
+
         if (image) {
             await CatModel.findOneAndUpdate(
                 { _id: cat._id },
                 {
-                    $push: {
-                        images: image,
-                    },
+                $set: {
+                    image: image.filename
+                },
                 }
             );
         }
@@ -86,6 +88,7 @@ async function postCat(req, res) {
             res.status(400);
             throw new Error('Invalid cat data');
         }
+
     } catch (err) {
         res.json(err.message);
     }
@@ -254,6 +257,10 @@ async function editRecord(req, res) {
     }
 }
 
+async function postPfp(req, res) {
+  
+}
+
 module.exports = {
   getCats,
   getCat,
@@ -262,5 +269,5 @@ module.exports = {
   deleteCat,
   deleteRecord,
   editRecord,
-
+  postPfp,
 };

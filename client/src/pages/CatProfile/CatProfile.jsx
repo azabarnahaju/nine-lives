@@ -12,10 +12,7 @@ import { getLastDate, getTimeUntilNextVacc } from "../../utils/CatData";
 
 const url = 'http://localhost:4000/api/v1/cats';
 
-const daysUntilNextVacc = (lastVisit) =>
-    365 - (Date.now() - lastVisit) / (1000 * 60 * 60 * 24);
 const patchCatProfile = async (body, catData, setNeedReload, needReload) => {
-  console.log(catData._id);
   try {
     const response = await fetch(`${url}/${catData._id}`, {
       method: "PATCH",
@@ -52,7 +49,6 @@ export default function CatProfile() {
                   `http://localhost:4000/api/v1/cats/${catID}`
               );
               const data = await res.json();
-              console.log(data);
               if (data) {
                   setCatData(data);
               }
@@ -183,8 +179,8 @@ export default function CatProfile() {
               </tr>
             </table>
           </div>
-          <div className="catprofile-pic-container">
-            <img className="cat-profile-pic" src={catData.image} />
+          <div className="cat-profile-pic-container">
+            <img className="cat-profile-pic" src={`http://localhost:4000/assets/cat_pfp/${catData.image}`} />
           </div>
         </div>
 

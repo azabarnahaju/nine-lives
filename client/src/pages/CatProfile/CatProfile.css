@@ -110,11 +110,21 @@
     display: inline-block;
 }
 
+.cat-profile-pic-container {
+    width: 100%;
+    max-width: 18em;
+    height: 18em; /* Set maximum width as needed */
+    position: relative;
+    overflow: hidden; /* Hide overflowing parts of the image */
+}
 .cat-profile-pic {
-    height: 20rem;
+    width: 100%; /* Set your desired width */
+    height: 100%; /* Set your desired height */
+    object-fit: cover; /* Ensure the image covers the container */
+    clip-path: inset(0 round 10px); /* Adjust the round value for the border radius */
     border-radius: 2rem;
     border:2px solid #3A2F25;
-    filter:drop-shadow(1rem 1rem 10px rgba(58, 46, 39, 0.726))
+    /*filter:drop-shadow(1rem 1rem 10px rgba(58, 46, 39, 0.726))*/
 }
 
 .catprofile-gen-info-container {
@@ -122,6 +132,7 @@
     justify-content: space-around;
     padding-right: 2rem;
     margin-bottom: 4rem;
+    align-items: center;
 }
 
 .new-hr-btn {

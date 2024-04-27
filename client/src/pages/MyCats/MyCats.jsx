@@ -14,18 +14,16 @@ export default function MyCats() {
   // eslint-disable-next-line no-unused-vars
   const { currUser, setCurrUser } = useUserContext();
   const [userCats, setUserCats] = useState(false);
-  const [isNewCatAdded, setIsNewCatAdded] = useState(false);
+
   useEffect(() => {
     const getCats = async () => {
       try {
         const response = await fetch(`/api/v1/users/${currUser._id}`)
         const userData = await response.json()
-        console.log(userData);
-        // const catData = await fetch("http://localhost:4000/api/v1/cats");
-        const cats = userData.cats;
-        setUserCats(cats);
+        setUserCats(userData.cats);
       } catch (err) {
-        toast.error(err, {
+        console.log(err)
+        /*toast.error(err, {
           position: "top-center",
           autoClose: 5000,
           hideProgressBar: false,
@@ -34,15 +32,16 @@ export default function MyCats() {
           draggable: true,
           progress: undefined,
           theme: "light",
-        });
+        });*/
       }
     };
     getCats();
-  }, [isNewCatAdded]);
+  }, []);
+
   return (
     <div className="cats-parent-container">
       <Navbar />
-      <AddACatBtn isNewCatAdded={isNewCatAdded} setIsNewCatAdded={setIsNewCatAdded} />
+      <AddACatBtn cats={userCats} setUserCats={setUserCats} />
       <Logout />
       <ToastContainer
         position="top-center"

@@ -8,11 +8,7 @@ const CatSchema = mongoose.Schema({
     fav_toy: String,
     curr_vacc: Boolean,
     //lastvacc
-    images: [
-        {
-            type: String,
-        },
-    ],
+    image: String,
     last_visit: Date,
     health_rec: [
         {

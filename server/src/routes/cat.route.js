@@ -1,8 +1,26 @@
 const express = require('express');
 const router = express.Router();
 const catQuery = require('../queries/cat.query');
+const path = require('path');
+const multer = require("multer");
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "src/assets/cat_pfp");
+  },
+  filename: (req, file, cb) => {
+    cb(
+      null,
+      file.fieldname + "_" + Date.now() + path.extname(file.originalname)
+    );
+  },
+});
 
-router.route('/').get(catQuery.getCats).post(catQuery.postCat);
+const upload = multer({ storage: storage });
+
+router
+  .route("/")
+  .get(catQuery.getCats)
+  .post(upload.single("image"), catQuery.postCat);
 router
     .route('/:catId')
     .get(catQuery.getCat)

@@ -1,44 +1,67 @@
 import { useState, useEffect } from 'react';
 import { useUserContext } from '../../contexts/userContext';
 import { useNavigate } from 'react-router-dom';
+import { useFormik } from "formik";
 import './AddACatBtn.css';
-export default function AddACatBtn({ isNewCatAdded, setIsNewCatAdded }) {
+
+const updateUserCats = async (newCat, currentUser) => {
+    fetch(`http://localhost:4000/api/v1/users/${currUser._id}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ cats: [newCat._id] }),
+    });
+}
+export default function AddACatBtn({ setUserCats }) {
     const [isForm, setIsForm] = useState(false);
-    const [formDatas, setFormDatas] = useState({});
-    const [catDB, setCatDB] = useState(null);
     const [catBreeds, setCatBreeds] = useState([]);
     const { currUser, setCurrUser } = useUserContext();
-    const navigate = useNavigate();
 
-    useEffect(() => {
-        const addCat = async () => {
-            try {
-                const response = await fetch(
-                    `http://localhost:4000/api/v1/cats`,
-                    {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(formDatas),
-                    }
-                );
-                const data = await response.json();
-                if (data) {
-                    await fetch(
-                        `http://localhost:4000/api/v1/users/${currUser._id}`,
-                        {
-                            method: 'PATCH',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify({ cats: [data._id] }),
-                        }
-                    );
-                }
-                setIsNewCatAdded(!isNewCatAdded);
-            } catch (err) {
-                console.log(err);
+    const formik = useFormik({
+      initialValues: {},
+      onSubmit: async (values, {resetForm}) => {
+        const formData = new FormData();
+
+        for (let value in values) {
+          formData.append(value, values[value]);
+        }
+
+        try {
+            const response = await fetch(
+                "http://localhost:4000/api/v1/cats", 
+                {
+                    method: "POST",
+                    body: formData,
+                });
+            
+            if (!response.ok) {
+                throw new Error("Error adding new cat");
             }
-        };
-        if (formDatas.name) addCat();
-    }, [formDatas]);
+
+            const newCat = await response.json();
+            try {
+                const result = await fetch(`http://localhost:4000/api/v1/users/${currUser._id}`, {
+                  method: "PATCH",
+                  headers: { "Content-Type": "application/json" },
+                  body: JSON.stringify({ cats: [newCat._id] }),
+                });
+
+                if (!result.ok){
+                    throw new Error("Error updating user profile")
+                }
+            } catch (error) {
+                console.log("Error updating user profile:", error)
+            }
+            
+            setUserCats((oldCats) => [...oldCats, newCat]);
+            setIsForm(!isForm);
+
+        } catch (error) {
+            console.log("Error adding cat:", error);
+        }
+        
+        resetForm();
+      },
+    });
 
     useEffect(() => {
         try {
@@ -55,65 +78,94 @@ export default function AddACatBtn({ isNewCatAdded, setIsNewCatAdded }) {
             console.log(err);
         }
     }, []);
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        const formData = new FormData(e.currentTarget);
-        setFormDatas(Object.fromEntries(formData));
-        setIsForm(!isForm);
-        e.currentTarget.reset();
-    };
-
+    
     const handleEsc = () => {
-        setIsForm(!isForm);
+      formik.resetForm();  
+      setIsForm(!isForm);
     };
+
     return !isForm ? (
-        <button className='add-a-cat-btn' onClick={() => setIsForm(!isForm)}>
-            +
-        </button>
+      <button className="add-a-cat-btn" onClick={() => setIsForm(!isForm)}>
+        +
+      </button>
     ) : (
-        <div className='add-a-cat-modal'>
-            <button className='add-a-cat-modal-esc' onClick={handleEsc}>
-                X
-            </button>
-            <form onSubmit={handleSubmit} className='add-a-cat-form'>
-                <label htmlFor='name'>Name</label>
-                <input type='text' id='name' name='name' />
+      <div className="add-a-cat-modal">
+        <button className="add-a-cat-modal-esc" onClick={handleEsc}>
+          X
+        </button>
+        <form
+          className="add-a-cat-form"
+          onSubmit={formik.handleSubmit}
+          encType="multipart/form-data"
+        >
+          <label htmlFor="name">Name</label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            onChange={formik.handleChange}
+            value={formik.values.name}
+          />
 
-                <label htmlFor='birth'>Birth</label>
-                <input
-                    type='date'
-                    id='birth'
-                    name='birth'
-                    style={{ textAlign: 'center' }}
-                />
+          <label htmlFor="birth">Birth</label>
+          <input
+            type="date"
+            id="birth"
+            name="birth"
+            style={{ textAlign: "center" }}
+            onChange={formik.handleChange}
+            value={formik.values.birth}
+          />
 
-                <label htmlFor='breed'>Breed</label>
-                <select name='breed' id='breed' className='breed-select'>
-                    <option>Choose a breed</option>
-                    {catBreeds.map((breed) => (
-                        <option key={breed} value={breed}>
-                            {breed}
-                        </option>
-                    ))}
-                </select>
+          <label htmlFor="breed">Breed</label>
+          <select
+            name="breed"
+            id="breed"
+            className="breed-select"
+            onChange={formik.handleChange}
+            value={formik.values.breed}
+          >
+            <option>Choose a breed</option>
+            {catBreeds.map((breed) => (
+              <option key={breed} value={breed}>
+                {breed}
+              </option>
+            ))}
+          </select>
 
-                <label htmlFor='color'>Color</label>
-                <input type='text' id='color' name='color' />
+          <label htmlFor="color">Color</label>
+          <input
+            type="text"
+            id="color"
+            name="color"
+            onChange={formik.handleChange}
+            value={formik.values.color}
+          />
 
-                <label htmlFor='fav_toy'>Favorite Toy</label>
-                <input type='text' id='fav_toy' name='fav_toy' />
+          <label htmlFor="fav_toy">Favorite Toy</label>
+          <input
+            type="text"
+            id="fav_toy"
+            name="fav_toy"
+            onChange={formik.handleChange}
+            value={formik.values.fav_toy}
+          />
 
-                <label htmlFor='image'>Image</label>
-                <input type='text' id='image' name='image' />
-                    
-                <button
-                    className='add-a-cat-submit-btn'
-                    type='submit'
-                    value='Submit'
-                >
-                    Add a cat
-                </button>
-            </form>
-        </div>
+          <label htmlFor="image">Image</label>
+          <input
+            type="file"
+            id="image"
+            name="image"
+            accept="image/*"
+            onChange={(e) =>
+              formik.setFieldValue("image", e.currentTarget.files[0])
+            }
+          />
+
+          <button className="add-a-cat-submit-btn" type="submit" value="Submit">
+            Add a cat
+          </button>
+        </form>
+      </div>
     );
 }

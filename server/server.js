@@ -6,6 +6,7 @@ const {
 const app = express();
 const PORT = '4000';
 const { errorHandler } = require('./src/middlewares/error.middleware');
+const path = require("path");
 
 app.use(function (req, res, next) {
     res.header('Access-Control-Allow-Origin', '*');
@@ -18,12 +19,14 @@ app.use(function (req, res, next) {
 });
 
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static("src"));
 app.use(errorHandler);
 
 app.use('/api/v1/cats', require('./src/routes/cat.route'));
 app.use('/api/v1/users', require('./src/routes/user.route'));
 app.use('/api/v1/diseases', require('./src/routes/disease.route'));
+
 
 async function main() {
     try {
