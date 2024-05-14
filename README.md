@@ -43,7 +43,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-<!--[![Product Name Screen Shot][product-screenshot]](https://example.com) -->
+![Product Name Screen Shot][product-home]
 
 Nine lives is a web application built with node.js, Express and React.js that enables users to track their cats' vet visit, symptoms and vaccination information. It also provides information on different breeds. 
 
@@ -155,8 +155,12 @@ Nine lives is a web application built with node.js, Express and React.js that en
 ### 2. Create your cat(s)'s profile(s)
 * Once you're signed in, navigate to the Cats page where you can create new profile for your cat(s) providing their name, year of birth, their favourite toy, choosing their breed and adding a photo. 
 
+  ![Product Name Screen Shot][product-cats]
+
 ### 3. Adding vet visit and vaccination records 
 * Navigate to your cat's profile where you can add a vet visit and/or vaccination records by providing the date and the diagnosis/vaccination type and optionally include additional notes.  
+
+  ![Product Name Screen Shot][product-catprofile]
 
 ### 4. Check symptoms
 * Navigate to your cat's profile and by adding a new symptom record provide symptoms to receive possible diagnoses. You can save them to your cat's profile. 
@@ -221,3 +225,6 @@ Project Link: [https://github.com/azabarnahaju/nine-lives](https://github.com/az
 [mongodb-url]: https://www.mongodb.com
 [Docker]: https://img.shields.io/badge/docker-2496ED?style=for-the-badge&logo=docker&logoColor=white
 [docker-url]: https://www.docker.com 
+[product-home]: images/ninelives_home.gif
+[product-cats]: images/ninelives_cats.png
+[product-catprofile]: images/ninelives_catprofile.png
